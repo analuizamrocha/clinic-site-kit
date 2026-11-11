@@ -65,7 +65,8 @@ test('mobile menu reaches every section without JavaScript', async ({ browser, i
   await context.close()
 })
 
-test('a fictional site is not crawlable', async ({ request }) => {
+test('robots follows the config: fictional sites are never crawlable', async ({ request }) => {
   const robots = await (await request.get('/robots.txt')).text()
-  expect(robots).toMatch(/Disallow: \//)
+  if (config.fictional) expect(robots).toMatch(/Disallow: \//)
+  else expect(robots).toMatch(/Allow: \/[\s\S]*Sitemap: /)
 })

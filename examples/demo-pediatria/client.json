@@ -1,0 +1,76 @@
+{
+  "fictional": true,
+  "brand": {
+    "siteName": "Dr. Rafael Demonstração",
+    "url": "https://www.rafael-demonstracao.com.br",
+    "locale": "pt-BR",
+    "tagline": "Acompanhamento do crescimento e do desenvolvimento, do nascimento à adolescência.",
+    "description": "Pediatra em Joinville - SC. Consultas de rotina e acompanhamento do desenvolvimento infantil. Brief de demonstração.",
+    "palette": {
+      "primary": "#2d5a3d",
+      "onPrimary": "#ffffff",
+      "accent": "#e0a458",
+      "background": "#f7f9f6",
+      "surface": "#e8efe7",
+      "text": "#1d2a22",
+      "muted": "#4f5f55"
+    },
+    "primaryContactId": "consultas"
+  },
+  "practitioner": {
+    "name": "Rafael Demonstração Silva",
+    "displayName": "Dr. Rafael Demonstração",
+    "specialty": "Pediatra",
+    "council": { "body": "CRM", "region": "SC", "number": "00001" },
+    "rqe": [],
+    "bio": "Médico pediatra (dados de demonstração). Acompanha crianças e adolescentes com consultas de rotina e orientação às famílias.",
+    "credentials": ["Residência em Pediatria (instituição fictícia de demonstração)"],
+    "photo": { "file": "portrait.jpg", "alt": "Imagem neutra de demonstração no lugar do retrato" },
+    "sameAs": []
+  },
+  "contacts": [
+    {
+      "id": "consultas",
+      "purpose": "consulta",
+      "channel": "whatsapp",
+      "e164": "+5547900000000",
+      "display": "(47) 90000-0000",
+      "ctaLabel": "Agendar consulta",
+      "message": "Olá! Vim pelo site e gostaria de agendar uma consulta com o Dr. Rafael."
+    }
+  ],
+  "locations": [
+    {
+      "id": "consultorio",
+      "slug": "joinville-centro",
+      "name": "Consultório Joinville (endereço fictício)",
+      "address": {
+        "street": "Rua Demonstração",
+        "number": "10",
+        "district": "Centro",
+        "city": "Joinville",
+        "region": "SC",
+        "postalCode": "89200-000"
+      },
+      "hours": ["Segunda a sexta, 9h às 17h"],
+      "contactIds": ["consultas"]
+    }
+  ],
+  "services": [
+    {
+      "slug": "consulta-de-rotina",
+      "title": "Consulta de rotina",
+      "summary": "Acompanhamento periódico de crescimento, desenvolvimento e vacinação.",
+      "indications": ["Acompanhamento do primeiro ano de vida", "Consultas periódicas na infância e adolescência"],
+      "body": ["A frequência das consultas é combinada com a família, de acordo com a idade da criança."],
+      "faqs": [],
+      "contactId": "consultas",
+      "locationIds": ["consultorio"],
+      "state": "published",
+      "indexable": true
+    }
+  ],
+  "faqs": [{ "question": "Como agendar?", "answer": "Pelo WhatsApp do consultório." }],
+  "analytics": {},
+  "privacy": { "controller": "Rafael Demonstração Silva (demonstração)", "email": "privacidade@rafael-demonstracao.com.br" }
+}

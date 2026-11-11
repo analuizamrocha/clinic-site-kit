@@ -23,13 +23,18 @@ describe('discovery', () => {
     expect([...linked].sort()).toEqual(expected.sort())
   })
 
-  it('hides a fictional site from crawlers', () => {
-    expect(site.fictional).toBe(true)
+  it.runIf(site.fictional)('hides a fictional site from crawlers', () => {
     expect(sitemap()).toEqual([])
     expect(robots().rules).toEqual([{ userAgent: '*', disallow: '/' }])
   })
 
-  it('validates post frontmatter', () => {
+  it.runIf(!site.fictional)('publishes every indexable page in the sitemap', () => {
+    const urls = sitemap().map((entry) => entry.url)
+    expect(urls).toHaveLength(getIndexablePages().length)
+    expect(robots().sitemap).toBe(`${site.brand.url}/sitemap.xml`)
+  })
+
+  it.runIf(getAllPosts().length > 0)('validates post frontmatter', () => {
     const [post] = getAllPosts()
     const services = new Set(getPublishedServices().map((service) => service.slug))
     expect(validatePost(post, services)).toEqual([])

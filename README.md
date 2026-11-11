@@ -22,6 +22,17 @@ increments, one PR each:
 4. LGPD consent, minimized conversion events, Playwright suite
 5. `scripts/new-site` generator + `clinic-new-site` skill + end-to-end dry run
 
+## Quick start: a new client site
+
+```bash
+cd templates/next-app && bun install
+bun scripts/create-site.ts --brief ../../examples/demo-pediatria/client.json --out /tmp/demo-site --check
+```
+
+Brief → validated repo that passes `bun run check` (~25 s on a laptop). See
+`skills/clinic-new-site/SKILL.md` for turning a filled `CLIENT-BRIEF.md` into
+`client.json`, and `templates/next-app/README.md` for what the starter enforces.
+
 ## Install
 
 ```bash
@@ -46,11 +57,16 @@ Then: fill `docs/client-brief.md` → run `/clinic-compliance-research` → read
 | `reference/compliance-examples/` | A worked compliance doc (Brazilian medicine / CFM) — **format reference only** |
 | `templates/` | Seeds for `docs/seo-strategy.md` and `docs/blog-content-playbook.md` |
 | `install.sh` | Bootstrap into a target repo |
+| `templates/next-app/` | **Runnable starter**: config-driven Next.js site with validation, consent, tests |
+| `templates/next-app/scripts/create-site.ts` | Generator: client brief JSON + portrait → new repo |
+| `examples/demo-pediatria/` | Fictional brief + portrait used by CI to prove the generator |
+| `docs/adr/` | Architecture decisions |
 
 ## Skills
 
 | Skill | When | Cadence |
 |---|---|---|
+| `clinic-new-site` | **New client.** Brief → `client.json` → generated repo passing `check` | Once per client |
 | `clinic-compliance-research` | **First.** Which regulator, what it currently says → `docs/compliance-guidelines.md` | Once, then every 6 months |
 | `clinic-foundation` | Constants, entity graph, metadata generators, sitemap, robots, llms.txt, guardrail tests | Once |
 | `clinic-treatment-page` | One service page, 12-point checklist | Per service |

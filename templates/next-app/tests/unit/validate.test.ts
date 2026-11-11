@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import config from '@site/site.config'
+// The validator is exercised against the fictional fixture, whatever the site's own config is.
+import config from '../fixtures/demo-site.config'
 import { findClinicalTerm, findSiteConfigProblems, validateSiteConfig } from '@/lib/site/validate'
 import type { SiteConfig } from '@/lib/site/types'
 

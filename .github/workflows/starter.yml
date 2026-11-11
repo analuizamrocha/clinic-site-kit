@@ -2,7 +2,7 @@ name: Starter app
 
 on:
   pull_request:
-    paths: ['templates/next-app/**', '.github/workflows/starter.yml']
+    paths: ['templates/next-app/**', 'examples/**', '.github/workflows/starter.yml']
   push:
     branches: [main]
     paths: ['templates/next-app/**', '.github/workflows/starter.yml']
@@ -34,3 +34,22 @@ jobs:
         with:
           name: playwright-report
           path: templates/next-app/test-results
+
+  generate:
+    name: generate a site from the example brief
+    needs: check
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: templates/next-app/.nvmrc
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+        working-directory: templates/next-app
+      - run: bunx playwright install --with-deps chromium
+        working-directory: templates/next-app
+      - name: create-site --check (brief → repo → typecheck, lint, unit, build, e2e)
+        working-directory: templates/next-app
+        run: bun scripts/create-site.ts --brief ../../examples/demo-pediatria/client.json --out "$RUNNER_TEMP/demo-site" --check
