@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { ConsentSettingsButton } from '@/components/analytics/ConsentSettingsButton'
 import { FOOTER_ITEMS } from '@/lib/navigation'
 import { councilLabel, site } from '@/lib/site'
 
@@ -24,6 +25,11 @@ export const Footer = () => {
                 </Link>
               </li>
             ))}
+            {site.analytics.gtmId ? (
+              <li>
+                <ConsentSettingsButton />
+              </li>
+            ) : null}
           </ul>
         </nav>
       </div>

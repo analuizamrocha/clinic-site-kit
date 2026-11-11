@@ -4,6 +4,10 @@ Runnable starter generated into each new client repo. **All client facts live in
 `site/site.config.ts`**; everything else derives from it. See
 [ADR 0001](../../docs/adr/0001-harness-stack.md).
 
+Use **Node 24** (`.nvmrc`). On Node 26 the jsdom test environment loses
+`localStorage` (Node's own experimental Web Storage global shadows it), and the
+consent tests fail for reasons unrelated to the code.
+
 ```bash
 bun install
 bun run dev        # http://localhost:3000
@@ -30,6 +34,15 @@ bun run check      # typecheck · lint · unit · build · e2e — must pass bef
 | Fonts | `src/app/fonts.ts` (keep the CSS variable names) |
 | Portrait and images | `public/images/` + `practitioner.photo` with real width/height |
 | Extra clinical terms to block in messages | `CLINICAL_TERMS` in `src/lib/site/validate.ts` |
+
+## Analytics and consent
+
+With no `analytics.gtmId` there is no banner, no script and no event. With one,
+GTM loads only after the visitor accepts (accept and refuse carry equal weight;
+"Preferências de cookies" in the footer reopens the choice). Conversion clicks
+push `whatsapp_click` / `phone_click` / `maps_click` with only `placement`,
+`contact_purpose` and the destination **without its query**: no page path, no
+title, no prefilled message.
 
 Component classes live in `@layer components` so Tailwind utilities such as
 `hidden`/`lg:hidden` keep working when combined with them.
