@@ -10,6 +10,18 @@ Built to be **installed into another practice's repo** and reused. Nothing here
 is specific to one client or one profession — client facts are fill-ins, and the
 regulatory rules are *researched per project* rather than hardcoded.
 
+## Roadmap: from kit to harness
+
+The kit is becoming a runnable starter (`templates/next-app/`) generated from a
+filled client brief. See [ADR 0001](docs/adr/0001-harness-stack.md). Planned
+increments, one PR each:
+
+1. ADR and roadmap (this change)
+2. Starter app: typed `site.config.ts`, validation, theme from palette, home
+3. All routes, metadata, JSON-LD, sitemap, robots, llms.txt from the config
+4. LGPD consent, minimized conversion events, Playwright suite
+5. `scripts/new-site` generator + `clinic-new-site` skill + end-to-end dry run
+
 ## Install
 
 ```bash
