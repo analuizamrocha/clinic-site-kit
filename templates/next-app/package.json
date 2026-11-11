@@ -1,0 +1,43 @@
+{
+  "name": "clinic-site",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "theme": "bun scripts/write-theme.ts",
+    "e2e": "playwright test",
+    "check": "bun run typecheck && bun run lint && bun run test && bun run build && bun run e2e"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "next": "16.2.10",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.58.2",
+    "@tailwindcss/postcss": "^4.1.4",
+    "@testing-library/react": "^16.1.0",
+    "@types/node": "^24",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "^4.4.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.10",
+    "jsdom": "^25.0.1",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vitest": "^2.1.8"
+  }
+}

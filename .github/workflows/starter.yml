@@ -1,0 +1,29 @@
+name: Starter app
+
+on:
+  pull_request:
+    paths: ['templates/next-app/**', '.github/workflows/starter.yml']
+  push:
+    branches: [main]
+    paths: ['templates/next-app/**', '.github/workflows/starter.yml']
+
+jobs:
+  check:
+    name: typecheck · lint · unit · build
+    # Pinned: Playwright does not support Chromium on ubuntu 26.04 yet.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: templates/next-app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: templates/next-app/.nvmrc
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - run: bun run typecheck
+      - run: bun run lint
+      - run: bun run test
+      - run: bun run build
