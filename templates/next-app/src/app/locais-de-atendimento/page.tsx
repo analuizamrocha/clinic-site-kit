@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import { buildMetadata } from '@/lib/metadata'
-import { primaryCityLabel, site } from '@/lib/site'
+import { cityLabelsOf, singlePlaceTitle, site } from '@/lib/site'
 
 export const metadata = buildMetadata({
-  title: `Onde atende em ${primaryCityLabel()}`,
+  title: singlePlaceTitle('Onde atende', cityLabelsOf(site.locations)),
   description: `Endereços, horários e contatos de ${site.practitioner.displayName}.`,
   path: '/locais-de-atendimento',
 })

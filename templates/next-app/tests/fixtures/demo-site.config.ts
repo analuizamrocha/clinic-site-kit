@@ -2,7 +2,7 @@ import type { SiteConfig } from '@/lib/site/types'
 
 /**
  * ⚠️ FICTIONAL DEMO PRACTICE. Every name, number and address below is invented
- * so the starter builds and its tests run. `scripts/new-site` replaces this
+ * so the starter builds and its tests run. `scripts/create-site.ts` replaces this
  * file from a filled client brief; never publish it as is (`fictional: true`
  * noindexes the site, shows a demo banner and fails a production build).
  *
@@ -146,6 +146,14 @@ const config: SiteConfig = {
     controller: 'Helena Exemplo Modelo (demonstração)',
     email: 'privacidade@helena-exemplo.com.br',
   },
+
+  redirects: [
+    {
+      from: '/consulta',
+      to: '/tratamentos/consulta-dermatologica',
+      reason: 'Demonstração: endereço curto divulgado em material impresso.',
+    },
+  ],
 }
 
 export default config

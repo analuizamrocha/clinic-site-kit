@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import { buildMetadata } from '@/lib/metadata'
-import { getPublishedServices, primaryCityLabel, site } from '@/lib/site'
+import { getPublishedServices, publishedCityLabels, singlePlaceTitle, site } from '@/lib/site'
 
 export const metadata = buildMetadata({
-  title: `Tratamentos em ${primaryCityLabel()}`,
-  description: `Atendimentos de ${site.practitioner.displayName}, ${site.practitioner.specialty.toLocaleLowerCase('pt-BR')} em ${primaryCityLabel()}.`,
+  title: singlePlaceTitle('Tratamentos', publishedCityLabels()),
+  description: `Páginas de atendimento de ${site.practitioner.displayName}. Cada uma explica quando o atendimento é considerado e como agendar.`,
   path: '/tratamentos',
 })
 

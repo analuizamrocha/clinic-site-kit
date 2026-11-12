@@ -6,7 +6,7 @@ import { ContactButton } from '@/components/ContactButton'
 import { JsonLd } from '@/components/JsonLd'
 import { buildMetadata } from '@/lib/metadata'
 import { clinicNode } from '@/lib/schema'
-import { getContact, getPublishedServices, site } from '@/lib/site'
+import { getContact, getPublishedServices, locationTitle, site } from '@/lib/site'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -20,7 +20,10 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
   const location = findLocation((await params).slug)
   if (!location) return {}
   return buildMetadata({
-    title: `${site.practitioner.specialty} em ${location.address.city} - ${location.address.region}: ${location.name}`,
+    // The home page owns "<specialty> em <its city>". A location in that same
+    // city answers address and booking searches. A location in another city is
+    // the only page that can own that city's query.
+    title: locationTitle(location),
     description: `Endereço, horários e como agendar com ${site.practitioner.displayName} em ${location.name}.`,
     path: `/locais-de-atendimento/${location.slug}`,
   })

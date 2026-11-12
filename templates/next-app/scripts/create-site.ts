@@ -46,6 +46,31 @@ const fail = (message: string): never => {
   process.exit(1)
 }
 
+export class BriefError extends Error {
+  constructor(message: string) {
+    super(message)
+    this.name = 'BriefError'
+  }
+}
+
+/** Reads a brief from text. Throws BriefError before any file is written. */
+export const parseBrief = (raw: string): ClientBrief => {
+  let parsed: unknown
+  try {
+    parsed = JSON.parse(raw)
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : 'parse error'
+    throw new BriefError(`the brief is not valid JSON (${detail})`)
+  }
+  if (!parsed || typeof parsed !== 'object') throw new BriefError('the brief must be a JSON object')
+  const brief = parsed as ClientBrief
+  const photo = brief.practitioner?.photo
+  if (typeof photo?.file !== 'string' || !photo.file.trim() || typeof photo?.alt !== 'string' || !photo.alt.trim()) {
+    throw new BriefError('the brief is missing practitioner.photo.file or practitioner.photo.alt')
+  }
+  return brief
+}
+
 const run = (command: string, args: string[], cwd: string) => {
   console.log(`$ ${command} ${args.join(' ')}`)
   const result = spawnSync(command, args, { cwd, stdio: 'inherit' })
@@ -76,7 +101,13 @@ const main = async () => {
   if (out.startsWith(STARTER)) fail('refusing to generate inside the starter itself')
   if (existsSync(out) && readdirSync(out).length) fail(`${out} exists and is not empty`)
 
-  const brief = JSON.parse(readFileSync(briefPath, 'utf8')) as ClientBrief
+  let brief: ClientBrief
+  try {
+    brief = parseBrief(readFileSync(briefPath, 'utf8'))
+  } catch (error) {
+    if (error instanceof BriefError) fail(`${error.message}; nothing was written`)
+    throw error
+  }
   const photoFile = resolve(dirname(briefPath), brief.practitioner.photo.file)
   if (!existsSync(photoFile)) fail(`portrait not found: ${photoFile}`)
 
@@ -137,4 +168,5 @@ Next steps
 `)
 }
 
-await main()
+// Bun sets `import.meta.main` for the entry file. Importing this module from a test must not generate a site.
+if ((import.meta as ImportMeta & { main?: boolean }).main) await main()

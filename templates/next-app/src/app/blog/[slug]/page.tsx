@@ -8,7 +8,7 @@ import { Byline } from '@/components/Byline'
 import { CtaCard } from '@/components/CtaCard'
 import { JsonLd } from '@/components/JsonLd'
 import { Sources } from '@/components/Sources'
-import { getAllPosts, getPost } from '@/lib/blog'
+import { getAllPosts, getPost, searchTitle } from '@/lib/blog'
 import { buildMetadata } from '@/lib/metadata'
 import { articlePage } from '@/lib/schema'
 import { getService, primaryContact } from '@/lib/site'
@@ -23,7 +23,7 @@ export const generateStaticParams = () => getAllPosts().map((post) => ({ slug: p
 export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
   const post = getPost((await params).slug)
   if (!post) return {}
-  return buildMetadata({ title: post.title, description: post.description, path: `/blog/${post.slug}`, indexable: post.indexable })
+  return buildMetadata({ title: searchTitle(post), description: post.description, path: `/blog/${post.slug}`, indexable: post.indexable })
 }
 
 const ArticlePage = async ({ params }: Props) => {

@@ -2,11 +2,13 @@ import Image from 'next/image'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import { ContactButton } from '@/components/ContactButton'
 import { buildMetadata } from '@/lib/metadata'
-import { councilLabel, positioningLine, primaryContact, site } from '@/lib/site'
+import { cityLabelsOf, councilLabel, primaryContact, site } from '@/lib/site'
+
+const attendedCities = cityLabelsOf(site.locations)
 
 export const metadata = buildMetadata({
   title: `Sobre ${site.practitioner.displayName}`,
-  description: `${site.practitioner.displayName}, ${positioningLine()}. ${councilLabel()}.`,
+  description: `${site.practitioner.displayName}, ${site.practitioner.specialty}. ${councilLabel()}.`,
   path: '/sobre',
 })
 
@@ -17,7 +19,8 @@ const AboutPage = () => {
       <div>
         <Breadcrumb items={[{ name: 'Início', path: '/' }, { name: 'Sobre' }]} />
         <h1 className="mt-4 text-4xl font-semibold">{practitioner.displayName}</h1>
-        <p className="mt-2 text-xl text-primary">{positioningLine()}</p>
+        <p className="mt-2 text-xl text-primary">{practitioner.specialty}</p>
+        <p className="mt-2 text-muted">Atende em {attendedCities.join(', ')}.</p>
         <p className="mt-2 text-sm font-semibold text-muted">
           {councilLabel()}
           {practitioner.rqe.length ? ` · RQE ${practitioner.rqe.join(', ')}` : null}

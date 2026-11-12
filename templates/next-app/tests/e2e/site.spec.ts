@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test'
 import { contactHref } from '../../src/lib/contact-links'
 import { getIndexablePages } from '../../src/lib/discovery'
+import { positioningLine } from '../../src/lib/site'
 import { findClinicalTerm } from '../../src/lib/site/validate'
 import config from '../../site/site.config'
 
@@ -70,3 +71,28 @@ test('robots follows the config: fictional sites are never crawlable', async ({ 
   if (config.fictional) expect(robots).toMatch(/Disallow: \//)
   else expect(robots).toMatch(/Allow: \/[\s\S]*Sitemap: /)
 })
+
+test('each page has its own title and only the home page targets "<specialty> em <city>"', async ({ page }) => {
+  const owner = positioningLine().toLocaleLowerCase('pt-BR')
+  const titles = new Map<string, string>()
+  for (const path of PAGES) {
+    await page.goto(path)
+    const title = await page.title()
+    expect(titles.has(title), `${path} repeats the title of ${titles.get(title)}`).toBe(false)
+    titles.set(title, path)
+    const description = (await page.locator('meta[name="description"]').getAttribute('content')) ?? ''
+    const visible = await page.locator('body').innerText()
+    const haystack = `${title}\n${description}\n${visible}`.toLocaleLowerCase('pt-BR')
+    if (path === '/') expect(haystack).toContain(owner)
+    else expect(haystack, path).not.toContain(owner)
+  }
+})
+
+for (const redirect of config.redirects ?? []) {
+  test(`redirect ${redirect.from} → ${redirect.to}`, async ({ request }) => {
+    const response = await request.get(redirect.from, { maxRedirects: 0 })
+    expect(response.status()).toBe(308)
+    expect(response.headers()['location']).toBe(redirect.to)
+    expect((await request.get(redirect.to)).status()).toBe(200)
+  })
+}
