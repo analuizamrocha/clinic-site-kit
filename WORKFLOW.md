@@ -23,6 +23,10 @@ skills decide *what good looks like*. Don't make either one do the other's job.
 
 ## Step 0 (new site) — Generate from the starter (≈ 1 hour with a complete brief)
 
+The meeting, what to collect, and what to tell the client about the first year
+are in [`docs/novo-cliente.md`](docs/novo-cliente.md). The slides are in
+[`presentations/novo-cliente`](presentations/novo-cliente/slides.md).
+
 For a client without a site, skip the manual bootstrap: fill the brief, run
 `/clinic-compliance-research`, then `/clinic-new-site`. It produces a repo from
 `templates/next-app/` that already passes `bun run check`. Step 0b wraps that

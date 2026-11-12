@@ -26,6 +26,11 @@ increments, one PR each:
 
 ## Quick start: a new client site
 
+The meeting script, the handoff, and the month-by-month explanation are in
+[`docs/novo-cliente.md`](docs/novo-cliente.md). The deck for that meeting is
+[`presentations/novo-cliente`](presentations/novo-cliente/slides.md)
+(`bun install && bun run dev` in that folder).
+
 ```bash
 cd templates/next-app && bun install
 bun scripts/create-site.ts --brief ../../examples/demo-pediatria/client.json --out /tmp/demo-site --check
@@ -63,6 +68,8 @@ Then: fill `docs/client-brief.md` → run `/clinic-compliance-research` → read
 | `templates/next-app/scripts/create-site.ts` | Generator: client brief JSON + portrait → new repo |
 | `examples/demo-pediatria/` | Fictional brief + portrait used by CI to prove the generator |
 | `docs/adr/` | Architecture decisions |
+| `docs/novo-cliente.md` | Portuguese runbook for the next client: the meeting, the handoff, the months |
+| `presentations/novo-cliente/` | Slidev deck for that meeting (`bun run dev`, PDF or PPTX export) |
 
 ## Skills
 
