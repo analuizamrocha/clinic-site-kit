@@ -4,6 +4,8 @@ import { DemoBanner } from '@/components/DemoBanner'
 import { FloatingContact } from '@/components/FloatingContact'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
+import { JsonLd } from '@/components/JsonLd'
+import { siteGraph } from '@/lib/schema'
 import { site } from '@/lib/site'
 import { bodyFont, headingFont } from './fonts'
 import './globals.css'
@@ -23,6 +25,7 @@ export const viewport: Viewport = {
 const RootLayout = ({ children }: { children: ReactNode }) => (
   <html lang={site.brand.locale} className={`${bodyFont.variable} ${headingFont.variable}`}>
     <body className="font-sans antialiased">
+      <JsonLd data={siteGraph()} />
       <a href="#conteudo" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-background focus:p-3">
         Pular para o conteúdo
       </a>

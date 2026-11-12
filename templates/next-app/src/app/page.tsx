@@ -1,5 +1,7 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { ContactButton } from '@/components/ContactButton'
+import { FaqList } from '@/components/FaqList'
 import { buildMetadata } from '@/lib/metadata'
 import {
   councilLabel,
@@ -35,9 +37,9 @@ const HomePage = () => {
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <ContactButton contact={primaryContact()} placement="hero" />
-            <a href="#servicos" className="btn btn-secondary">
-              Ver atendimentos
-            </a>
+            <Link href="/tratamentos" className="btn btn-secondary">
+              Ver tratamentos
+            </Link>
           </div>
         </div>
         <Image
@@ -57,9 +59,12 @@ const HomePage = () => {
         </h2>
         <ul className="mt-6 grid gap-4 md:grid-cols-2">
           {services.map((service) => (
-            <li key={service.slug} className="card">
-              <h3 className="text-xl font-semibold">{service.title}</h3>
-              <p className="mt-2 text-text/85">{service.summary}</p>
+            <li key={service.slug}>
+              <Link href={`/tratamentos/${service.slug}`} className="card block h-full hover:-translate-y-0.5">
+                <h3 className="text-xl font-semibold">{service.title}</h3>
+                <p className="mt-2 text-text/85">{service.summary}</p>
+                <span className="mt-3 inline-block font-semibold text-primary">Conhecer o tratamento</span>
+              </Link>
             </li>
           ))}
         </ul>
@@ -99,24 +104,9 @@ const HomePage = () => {
         </ul>
       </section>
 
-      <section id="duvidas" aria-labelledby="duvidas-titulo" className="container-page scroll-mt-24 py-12">
-        <h2 id="duvidas-titulo" className="text-3xl font-semibold">
-          Dúvidas frequentes
-        </h2>
-        <div className="mt-6 divide-y divide-text/10 border-y border-text/10">
-          {site.faqs.map((faq) => (
-            <details key={faq.question} className="group py-2">
-              <summary className="flex min-h-11 cursor-pointer items-center justify-between gap-4 font-semibold">
-                {faq.question}
-                <span aria-hidden="true" className="text-primary transition-transform group-open:rotate-45">
-                  +
-                </span>
-              </summary>
-              <p className="pb-4 text-text/85">{faq.answer}</p>
-            </details>
-          ))}
-        </div>
-      </section>
+      <div id="duvidas" className="container-page scroll-mt-24 py-2">
+        <FaqList faqs={site.faqs} headingId="duvidas-titulo" title="Dúvidas frequentes" />
+      </div>
     </>
   )
 }
