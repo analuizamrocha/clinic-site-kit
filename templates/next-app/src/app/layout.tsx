@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
+import { ConsentAnalytics } from '@/components/analytics/ConsentAnalytics'
 import { DemoBanner } from '@/components/DemoBanner'
 import { FloatingContact } from '@/components/FloatingContact'
 import { Footer } from '@/components/Footer'
@@ -34,6 +35,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => (
       <main id="conteudo">{children}</main>
       <Footer />
       <FloatingContact />
+      <ConsentAnalytics gtmId={site.analytics.gtmId} />
     </body>
   </html>
 )
