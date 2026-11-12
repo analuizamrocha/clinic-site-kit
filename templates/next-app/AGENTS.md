@@ -21,6 +21,15 @@ the clinic-site-kit starter.
    title, query string or prefilled message.
 6. **Structured data mirrors the page.** Emit JSON-LD only for what is visible.
 
+## Search rules the tests enforce
+
+- The home page alone owns "<specialty> em <city>" in its title; other pages
+  must not repeat it, and no two pages share a title.
+- Every indexable post lists at least one `relatedServiceSlugs`.
+- Search titles ≤ 60 characters (`seoTitle` when `title` is longer),
+  descriptions ≤ 160.
+- Redirects live in `site.config.ts` with a `reason`; never in `next.config.ts`.
+
 ## Conventions
 
 - Tailwind utilities; shared component classes in `@layer components` in

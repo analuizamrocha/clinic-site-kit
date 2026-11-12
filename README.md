@@ -21,6 +21,8 @@ increments, one PR each:
 3. All routes, metadata, JSON-LD, sitemap, robots, llms.txt from the config
 4. LGPD consent, minimized conversion events, Playwright suite
 5. `scripts/new-site` generator + `clinic-new-site` skill + end-to-end dry run
+6. Lessons from Search Console on live sites: one owner per city query, posts
+   must lead to a service, search-title limits, validated redirects
 
 ## Quick start: a new client site
 

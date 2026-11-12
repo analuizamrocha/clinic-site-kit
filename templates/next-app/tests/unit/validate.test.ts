@@ -21,6 +21,15 @@ describe('site config validation', () => {
     expect(() => validateSiteConfig(config, { vercelEnv: 'preview' })).not.toThrow()
   })
 
+  it('rejects redirects that are not plain paths, loop, repeat or chain', () => {
+    const redirect = { from: '/antigo', to: '/novo', reason: 'teste' }
+    expect(problemsOf((d) => (d.redirects = [{ ...redirect, to: 'https://outro.site/x' }]))).toMatch(/redirects\[0\]\.to: must be a path/)
+    expect(problemsOf((d) => (d.redirects = [{ ...redirect, from: '/' }]))).toMatch(/cannot redirect the home page/)
+    expect(problemsOf((d) => (d.redirects = [{ ...redirect, to: '/antigo' }]))).toMatch(/points at itself/)
+    expect(problemsOf((d) => (d.redirects = [redirect, { ...redirect, to: '/outro' }]))).toMatch(/duplicate redirect/)
+    expect(problemsOf((d) => (d.redirects = [redirect, { from: '/novo', to: '/fim', reason: 'teste' }]))).toMatch(/chain/)
+  })
+
   it('rejects placeholders anywhere', () => {
     expect(problemsOf((d) => (d.brand.tagline = 'TODO: tagline'))).toMatch(/brand\.tagline: looks like a placeholder/)
     expect(problemsOf((d) => (d.practitioner.bio = 'PREENCHER'))).toMatch(/practitioner\.bio/)

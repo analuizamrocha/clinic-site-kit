@@ -146,6 +146,14 @@ const config: SiteConfig = {
     controller: 'Helena Exemplo Modelo (demonstração)',
     email: 'privacidade@helena-exemplo.com.br',
   },
+
+  redirects: [
+    {
+      from: '/consulta',
+      to: '/tratamentos/consulta-dermatologica',
+      reason: 'Demonstração: endereço curto divulgado em material impresso.',
+    },
+  ],
 }
 
 export default config

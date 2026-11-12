@@ -125,6 +125,34 @@ Track a *focused* keyword portfolio, not every variant. Then:
 Protect page-one positions before chasing new ones. Measure booked consultations,
 not keyword count.
 
+### What the first year looks like (field lessons, 2025–2026)
+
+Read from Search Console on live practice sites built on these rules. No client
+figures are kept in this public repo; the rules below are what they showed.
+
+- **Set expectations: months 1–10 are flat.** The curve is a hockey stick, and
+  the bend comes from cadence on a few clusters, not from total post count.
+- **Most traffic will be national and informational**, not "<specialty> em
+  <city>". That is fine *if* every post leads to a service page and the
+  contact button — the starter now refuses an indexable post with no
+  `relatedServiceSlugs`; older sites had about a quarter of their posts as
+  dead ends.
+- **City queries are won mostly in the Google Business Profile** (map pack),
+  not by more posts: primary category, review count and pace, photos, and
+  name/address/phone identical on the profile, the site, directories and the
+  partner clinics' sites. The site's job is one owner page and consistent NAP.
+- **One owner per city query.** The home page owns "<specialty> em <city>";
+  location pages answer address and booking searches ("<clinic name>",
+  "<street> <number>"). A site where both used the same title sat at
+  around position 20 for its city query. The e2e suite now fails on repeated titles
+  and on any non-home title that contains the positioning line.
+- **Positions 5–12 with CTR under 0.5% are the cheapest win.** Rewrite
+  `seoTitle`/`description` in the searcher's words (≤ 60 / ≤ 160 chars), only
+  promising what the text already covers. The validator enforces the lengths.
+- **A 404 that still earns impressions is free traffic.** Search Console shows
+  them under Pages; add a `redirects` entry in `site.config.ts` (validated:
+  paths only, no loops, no chains, destination must be an indexable page).
+
 ---
 
 # Part 2 — AEO (Answer Engine Optimization)

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getAllPosts, validatePost } from '@/lib/blog'
+import { getAllPosts, SEARCH_TITLE_MAX, searchTitle, validatePost } from '@/lib/blog'
 import { getIndexablePages, renderLlmsTxt } from '@/lib/discovery'
 import { getPublishedServices, site } from '@/lib/site'
 import robots from '@/app/robots'
@@ -12,6 +12,11 @@ describe('discovery', () => {
       expect(paths.has(`/tratamentos/${service.slug}`), service.slug).toBe(service.indexable)
     }
     for (const post of getAllPosts()) expect(paths.has(`/blog/${post.slug}`), post.slug).toBe(post.indexable)
+  })
+
+  it('sends every redirect to a page the site indexes', () => {
+    const paths = new Set(getIndexablePages().map((page) => page.path))
+    for (const redirect of site.redirects ?? []) expect(paths.has(redirect.to), redirect.from).toBe(true)
   })
 
   it('keeps llms.txt in step with the indexable pages', () => {
@@ -41,5 +46,11 @@ describe('discovery', () => {
     expect(validatePost({ ...post, relatedServiceSlugs: ['nao-existe'] }, services).join()).toMatch(/unknown or unpublished/)
     expect(validatePost({ ...post, lastModified: '2000-01-01' }, services).join()).toMatch(/predates/)
     expect(validatePost({ ...post, body: 'TODO escrever' }, services).join()).toMatch(/placeholder/)
+    expect(validatePost({ ...post, relatedServiceSlugs: [] }, services).join()).toMatch(/must lead to at least one service/)
+    expect(validatePost({ ...post, indexable: false, relatedServiceSlugs: [] }, services)).toEqual([])
+    const long = 'x'.repeat(SEARCH_TITLE_MAX + 1)
+    expect(validatePost({ ...post, title: long }, services).join()).toMatch(/title: exceeds/)
+    expect(validatePost({ ...post, title: long, seoTitle: 'Curto' }, services)).toEqual([])
+    expect(searchTitle({ title: long, seoTitle: 'Curto' })).toBe('Curto')
   })
 })

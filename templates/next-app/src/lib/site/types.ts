@@ -149,6 +149,20 @@ export interface Privacy {
   email: string
 }
 
+/**
+ * A permanent redirect for a URL that people or Google still use but the site
+ * no longer serves: a renamed slug, a misspelled link on another site. Add one
+ * when Search Console shows a 404 that still earns impressions.
+ */
+export interface Redirect {
+  /** Path starting with `/`, e.g. `/blog/old-slug`. */
+  from: string
+  /** Path of a page this site serves, e.g. `/blog/new-slug`. */
+  to: string
+  /** Why it exists, so nobody deletes it as dead config. */
+  reason: string
+}
+
 export interface SiteConfig {
   /**
    * True for demo/fixture data. Renders a visible demo banner, noindexes the
@@ -163,4 +177,5 @@ export interface SiteConfig {
   faqs: Faq[]
   analytics: Analytics
   privacy: Privacy
+  redirects?: Redirect[]
 }

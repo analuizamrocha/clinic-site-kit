@@ -20,7 +20,10 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
   const location = findLocation((await params).slug)
   if (!location) return {}
   return buildMetadata({
-    title: `${site.practitioner.specialty} em ${location.address.city} - ${location.address.region}: ${location.name}`,
+    // The home page owns "<specialty> em <city>". Repeating it here made two
+    // pages compete for the same query on a real site; this page answers the
+    // address-and-booking searches instead.
+    title: `Endereço e agendamento: ${location.name}`,
     description: `Endereço, horários e como agendar com ${site.practitioner.displayName} em ${location.name}.`,
     path: `/locais-de-atendimento/${location.slug}`,
   })

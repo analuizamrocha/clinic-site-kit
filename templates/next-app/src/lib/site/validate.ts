@@ -139,6 +139,21 @@ export const findSiteConfigProblems = (
   if (config.analytics.gtmId && !/^GTM-[A-Z0-9]+$/.test(config.analytics.gtmId)) add('analytics.gtmId', 'must look like GTM-XXXX')
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(config.privacy.email)) add('privacy.email', 'must be an e-mail address')
 
+  const redirectSources = new Set<string>()
+  config.redirects?.forEach((redirect, index) => {
+    const path = `redirects[${index}]`
+    for (const field of ['from', 'to'] as const) {
+      if (!redirect[field].startsWith('/') || redirect[field].startsWith('//')) add(`${path}.${field}`, 'must be a path starting with /')
+    }
+    if (redirect.from === '/') add(`${path}.from`, 'cannot redirect the home page')
+    if (redirect.from === redirect.to) add(`${path}.to`, 'points at itself')
+    if (redirectSources.has(redirect.from)) add(`${path}.from`, `duplicate redirect from ${redirect.from}`)
+    redirectSources.add(redirect.from)
+  })
+  for (const redirect of config.redirects ?? []) {
+    if (redirectSources.has(redirect.to)) add('redirects', `${redirect.to} is both a source and a destination (chain)`)
+  }
+
   return problems
 }
 
