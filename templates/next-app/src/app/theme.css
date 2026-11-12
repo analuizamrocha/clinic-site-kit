@@ -1,0 +1,10 @@
+/* Generated from site/site.config.ts by `bun run theme`. Do not edit by hand. */
+@theme {
+  --color-primary: #1f4e5f;
+  --color-on-primary: #ffffff;
+  --color-accent: #c58b5b;
+  --color-background: #fbf8f4;
+  --color-surface: #f1ebe3;
+  --color-text: #1c2428;
+  --color-muted: #55626a;
+}
