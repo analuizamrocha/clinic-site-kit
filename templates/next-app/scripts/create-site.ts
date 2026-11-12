@@ -138,6 +138,8 @@ const main = async () => {
   writeFileSync(join(out, 'public', 'images', 'practitioner.webp'), portraitData)
   rmSync(join(out, 'public', 'images', 'practitioner.svg'), { force: true })
   rmSync(join(out, 'scripts', 'create-site.ts'), { force: true })
+  // The generator test imports the script above. A client repo no longer has that script.
+  rmSync(join(out, 'tests', 'unit', 'create-site.test.ts'), { force: true })
 
   // The demo article belongs to the demo practice; a client starts with an empty blog.
   const posts = join(out, 'content', 'posts')
