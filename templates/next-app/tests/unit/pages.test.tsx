@@ -4,7 +4,7 @@ import ArticlePage from '@/app/blog/[slug]/page'
 import TreatmentPage from '@/app/tratamentos/[slug]/page'
 import { getAllPosts } from '@/lib/blog'
 import { contactHref } from '@/lib/contact-links'
-import { getContact, getPublishedServices } from '@/lib/site'
+import { getContact, getPublishedServices, primaryContact } from '@/lib/site'
 
 afterEach(cleanup)
 
@@ -13,14 +13,17 @@ const jsonLd = (container: HTMLElement) =>
 
 const renderService = async (slug: string) => render(await TreatmentPage({ params: Promise.resolve({ slug }) }))
 
-describe('service page', () => {
-  const [indexable, awaitingSignOff] = getPublishedServices()
+const services = getPublishedServices()
+const indexable = services.find((service) => service.indexable) ?? services[0]
+const awaitingSignOff = services.find((service) => !service.indexable)
 
+describe.runIf(services.length > 0)('service page', () => {
   it('books through the contact configured for the service', async () => {
     const { container } = await renderService(indexable.slug)
     const expected = contactHref(getContact(indexable.contactId))
     const ctas = [...container.querySelectorAll<HTMLAnchorElement>('a[data-conversion]')]
-    expect(ctas.map((a) => a.dataset.conversion)).toEqual(['whatsapp-service-intro', 'whatsapp-service-sidebar'])
+    const channel = getContact(indexable.contactId).channel
+    expect(ctas.map((a) => a.dataset.conversion)).toEqual([`${channel}-service-intro`, `${channel}-service-sidebar`])
     for (const cta of ctas) expect(cta.getAttribute('href')).toBe(expected)
   })
 
@@ -33,20 +36,23 @@ describe('service page', () => {
     for (const question of visible) expect(screen.getByText(question)).toBeTruthy()
   })
 
-  it('does not present a page awaiting clinical sign-off as medical content', async () => {
-    expect(awaitingSignOff.indexable).toBe(false)
-    const { container } = await renderService(awaitingSignOff.slug)
+  it.runIf(Boolean(awaitingSignOff))('does not present a page awaiting clinical sign-off as medical content', async () => {
+    // TODO: drop the non-null assertion once vitest's runIf narrows the type.
+    const { container } = await renderService(awaitingSignOff!.slug)
     expect(jsonLd(container).some((node) => node['@type'] === 'MedicalWebPage')).toBe(false)
   })
 })
 
-describe('article page', () => {
+const postWithService = getAllPosts().find((post) => post.relatedServiceSlugs.length > 0)
+
+describe.runIf(Boolean(postWithService))('article page', () => {
   it('links the reader to the related treatment and keeps the CTA destination', async () => {
-    const post = getAllPosts()[0]
+    // TODO: drop the non-null assertion once vitest's runIf narrows the type.
+    const post = postWithService!
     const { container } = render(await ArticlePage({ params: Promise.resolve({ slug: post.slug }) }))
     const related = screen.getByRole('link', { name: 'Conhecer o tratamento' })
     expect(related.getAttribute('href')).toBe(`/tratamentos/${post.relatedServiceSlugs[0]}`)
-    const cta = container.querySelector<HTMLAnchorElement>('a[data-conversion="whatsapp-article-end"]')
-    expect(cta?.getAttribute('href')).toMatch(/^https:\/\/wa\.me\//)
+    const cta = container.querySelector<HTMLAnchorElement>('a[data-conversion$="-article-end"]')
+    expect(cta?.getAttribute('href')).toBe(contactHref(primaryContact()))
   })
 })
