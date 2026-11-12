@@ -39,6 +39,11 @@ The generator refuses to write anything if the brief is incomplete or unsafe.
    until the brief validates.
 4. **Brand pass in the new repo.** Fonts in `src/app/fonts.ts`; extra blocked
    terms for the specialty in `CLINICAL_TERMS`; extra photos in `public/images/`.
+   Then the design pass in `WORKFLOW.md` (Step 0b): `/impeccable init` and
+   `document`, then `typeset`, `layout`, `quieter`, `polish`, `audit`. Taste
+   Skill, if used, already ran once before this step. Do not vendor either
+   skill into the repo, and do not let Taste fetch stock photos or redraw the
+   site.
 5. **Verify.** `bun run check`, then screenshots at 390px and 1440px of home,
    one service, one location. Confirm every CTA destination against the brief.
 6. **Hand-off list.** Services awaiting clinical sign-off, facts still marked

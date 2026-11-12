@@ -32,6 +32,20 @@ the clinic-site-kit starter.
 - Redirects live in `site.config.ts` with a `reason`. The source is not an
   existing page; the destination is an indexable page. Never in `next.config.ts`.
 
+## Design pass
+
+Impeccable and Taste Skill are installed on the machine, not in this repo.
+[Impeccable](https://impeccable.style/) refines this site. [Taste Skill](https://www.tasteskill.dev/)
+does not run here: a direction is chosen once, before generate.
+
+- After the first generation: `/impeccable init`, then `/impeccable document`.
+  `PRODUCT.md` and `DESIGN.md` record the palette already in `site.config.ts`.
+- Allowed without a further ask: `typeset`, `layout`, `quieter`, `polish`, `audit`.
+- `bolder`, `overdrive` and `delight` only when explicitly requested.
+- A design edit does not change a fact, a phone number, a clinical claim, or
+  which page owns "<specialty> em <city>". No stock photo stands in for the
+  practitioner's portrait.
+
 ## Conventions
 
 - Tailwind utilities; shared component classes in `@layer components` in
