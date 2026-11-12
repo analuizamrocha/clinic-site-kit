@@ -25,8 +25,36 @@ skills decide *what good looks like*. Don't make either one do the other's job.
 
 For a client without a site, skip the manual bootstrap: fill the brief, run
 `/clinic-compliance-research`, then `/clinic-new-site`. It produces a repo from
-`templates/next-app/` that already passes `bun run check`. Continue below at
-Step 3 to plan the content work on top of it.
+`templates/next-app/` that already passes `bun run check`. Step 0b wraps that
+generation: Taste, if used, comes before it, and Impeccable comes after it.
+Then continue at Step 3.
+
+## Step 0b — Design pass
+
+[Taste Skill](https://www.tasteskill.dev/) and [Impeccable](https://impeccable.style/)
+stay installed on the machine. `create-site` does not copy them into the client
+repo. Install or update there, not inside the generated site:
+
+```bash
+npx skills add Leonxlnx/taste-skill
+npx impeccable install
+```
+
+Impeccable may already be present at `~/.claude/skills/impeccable`.
+
+1. **Once, before generate, optional.** Taste deals three directions. A person
+   picks one. Do not download stock photos in place of the practitioner's
+   portrait, and do not run Taste again after the site exists.
+2. **Generate** with `/clinic-new-site`. The chosen direction is already the
+   palette and the brief.
+3. **In the new repo:** `/impeccable init`, then `/impeccable document`. This
+   writes `PRODUCT.md` and `DESIGN.md` from the generated site. The brief's
+   palette, the fonts, and `AGENTS.md` stay pinned.
+4. **Refine only:** `/impeccable typeset`, `layout`, `quieter`, `polish`,
+   `audit`. `bolder`, `overdrive` and `delight` wait for an explicit request.
+
+Taste replaces a look. Impeccable keeps `DESIGN.md`. Running both on the same
+pass makes them fight. One chooses. The other refines.
 
 ## Step 0 (existing repo) — Bootstrap (5 min)
 
