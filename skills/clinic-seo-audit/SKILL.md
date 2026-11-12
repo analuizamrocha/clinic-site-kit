@@ -114,15 +114,19 @@ Read Queries and Pages with clicks, impressions, CTR and position, then:
 
 1. **Cheap CTR wins:** pages at position 5–12 with ≥ 1,000 impressions and CTR
    < 0.5%. Propose `seoTitle`/`description` in the searchers' words; list the
-   queries that justify each. Never promise what the body does not cover.
+   queries that justify each. The 60 characters include the ` | site name`
+   suffix. Never promise what the body does not cover.
 2. **City query ownership:** for each "<specialty> <city>" variant, which URL
    ranks? More than one URL, or a position > 10, means the owner page is not
-   clear. Check titles first (the starter's e2e test catches duplicates).
+   clear. The home page owns the primary city. A location in another city owns
+   that city. The starter's e2e test catches a repeated line or title.
 3. **Dead ends:** posts with impressions but no service link. In the starter
    the validator blocks this; in older sites list them for the practitioner
    to map — mapping a post to a treatment is a clinical call.
 4. **404s with impressions:** propose a `redirects` entry per URL with the
-   evidence (impressions, position) in `reason`.
+   evidence (impressions, position) in `reason`. The build rejects a source
+   that is already a page, a destination that is not indexable, a query, a
+   hash, a loop or a chain.
 5. **Local reality check:** if city queries are flat while informational ones
    grow, say so plainly and point at the Business Profile checklist in
    `reference/SEO-AEO-PLAYBOOK.md` §9 — it is outside the code.

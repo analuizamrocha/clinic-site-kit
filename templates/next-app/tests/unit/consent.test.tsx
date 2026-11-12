@@ -67,8 +67,8 @@ describe('consent-gated analytics', () => {
     render(<ConsentAnalytics gtmId="GTM-TEST" />)
     const reject = screen.getByRole('button', { name: 'Recusar' })
     const accept = screen.getByRole('button', { name: 'Aceitar' })
-    expect(reject.className.includes('btn')).toBe(true)
-    expect(accept.className.includes('btn')).toBe(true)
+    expect(reject.className).toBe(accept.className)
+    expect(reject.className.includes('btn-primary')).toBe(false)
   })
 })
 

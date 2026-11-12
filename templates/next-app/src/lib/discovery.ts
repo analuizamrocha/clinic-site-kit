@@ -1,5 +1,6 @@
 import { getAllPosts } from '@/lib/blog'
 import { getPublishedServices, site } from '@/lib/site'
+import { findRedirectTargetProblems, SiteConfigError } from '@/lib/site/validate'
 
 export interface DiscoverablePage {
   path: string
@@ -27,6 +28,34 @@ export const getIndexablePages = (): DiscoverablePage[] => [
   { path: '/perguntas-frequentes', title: 'Dúvidas frequentes' },
   { path: '/contato', title: 'Contato' },
 ]
+
+const STATIC_PATHS = [
+  '/',
+  '/sobre',
+  '/tratamentos',
+  '/locais-de-atendimento',
+  '/blog',
+  '/perguntas-frequentes',
+  '/contato',
+  '/politica-privacidade',
+]
+
+/** Every URL the app can respond to, including pages that stay out of the sitemap. */
+export const getServedPaths = (): string[] => [
+  ...STATIC_PATHS,
+  ...getPublishedServices().map((service) => `/tratamentos/${service.slug}`),
+  ...site.locations.map((location) => `/locais-de-atendimento/${location.slug}`),
+  ...getAllPosts().map((post) => `/blog/${post.slug}`),
+]
+
+/** Fails the build when a permanent redirect points at the wrong kind of URL. */
+export const assertRedirectTargets = () => {
+  const problems = findRedirectTargetProblems(site.redirects, {
+    indexable: new Set(getIndexablePages().map((page) => page.path)),
+    served: new Set(getServedPaths()),
+  })
+  if (problems.length) throw new SiteConfigError(problems)
+}
 
 export const renderLlmsTxt = () => {
   const pages = getIndexablePages()

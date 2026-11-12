@@ -31,7 +31,7 @@ treatment, and component CSS outside Tailwind's layers that silently beat
 ## Decision
 
 Ship a runnable starter at `templates/next-app/`, generated into a new client
-repo by `scripts/new-site`. **Every client fact lives in one typed file,
+repo by `scripts/create-site.ts`. **Every client fact lives in one typed file,
 `site/site.config.ts`**; pages, metadata, JSON-LD, sitemap, `robots`, `llms.txt`
 and the Markdown variant are derived from it.
 

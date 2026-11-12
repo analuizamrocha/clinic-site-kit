@@ -73,16 +73,19 @@ test('robots follows the config: fictional sites are never crawlable', async ({ 
 })
 
 test('each page has its own title and only the home page targets "<specialty> em <city>"', async ({ page }) => {
-  const owner = positioningLine()
+  const owner = positioningLine().toLocaleLowerCase('pt-BR')
   const titles = new Map<string, string>()
   for (const path of PAGES) {
     await page.goto(path)
     const title = await page.title()
     expect(titles.has(title), `${path} repeats the title of ${titles.get(title)}`).toBe(false)
     titles.set(title, path)
-    if (path !== '/') expect(title, path).not.toContain(owner)
+    const description = (await page.locator('meta[name="description"]').getAttribute('content')) ?? ''
+    const visible = await page.locator('body').innerText()
+    const haystack = `${title}\n${description}\n${visible}`.toLocaleLowerCase('pt-BR')
+    if (path === '/') expect(haystack).toContain(owner)
+    else expect(haystack, path).not.toContain(owner)
   }
-  expect([...titles].find(([, path]) => path === '/')?.[0]).toContain(owner)
 })
 
 for (const redirect of config.redirects ?? []) {

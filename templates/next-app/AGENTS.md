@@ -23,12 +23,14 @@ the clinic-site-kit starter.
 
 ## Search rules the tests enforce
 
-- The home page alone owns "<specialty> em <city>" in its title; other pages
-  must not repeat it, and no two pages share a title.
+- The home page alone owns "<specialty> em <primary city>" in its title,
+  description and body. A location in another city owns that city's line.
+  No two pages share a title.
 - Every indexable post lists at least one `relatedServiceSlugs`.
-- Search titles ≤ 60 characters (`seoTitle` when `title` is longer),
-  descriptions ≤ 160.
-- Redirects live in `site.config.ts` with a `reason`; never in `next.config.ts`.
+- Search titles ≤ 60 characters including the ` | site name` suffix
+  (`seoTitle` when the visible title is longer), descriptions ≤ 160.
+- Redirects live in `site.config.ts` with a `reason`. The source is not an
+  existing page; the destination is an indexable page. Never in `next.config.ts`.
 
 ## Conventions
 

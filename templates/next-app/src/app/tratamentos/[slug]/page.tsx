@@ -11,7 +11,7 @@ import { Sources } from '@/components/Sources'
 import { getPostsForService } from '@/lib/blog'
 import { buildMetadata } from '@/lib/metadata'
 import { servicePage } from '@/lib/schema'
-import { getContact, getLocation, getPublishedServices, getService, primaryCityLabel } from '@/lib/site'
+import { getContact, getLocation, getPublishedServices, getService, primaryCityLabel, servicePlaceLabel, site } from '@/lib/site'
 import type { Location } from '@/lib/site/types'
 
 type Props = { params: Promise<{ slug: string }> }
@@ -24,7 +24,7 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
   const service = getService((await params).slug)
   if (!service) return {}
   return buildMetadata({
-    title: `${service.title} em ${primaryCityLabel()}`,
+    title: `${service.title} em ${servicePlaceLabel(service, site.locations, primaryCityLabel())}`,
     description: service.summary,
     path: `/tratamentos/${service.slug}`,
     indexable: service.indexable,

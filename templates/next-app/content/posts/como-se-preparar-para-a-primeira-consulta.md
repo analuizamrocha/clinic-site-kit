@@ -1,5 +1,6 @@
 ---
 title: "Como se preparar para a primeira consulta"
+seoTitle: "Como preparar a primeira consulta"
 description: "O que levar, o que anotar antes e o que esperar da primeira consulta no consultório. Artigo de demonstração."
 slug: como-se-preparar-para-a-primeira-consulta
 publishDate: 2026-11-01

@@ -66,7 +66,7 @@ export const ConsentAnalytics = ({ gtmId }: { gtmId?: string }) => {
         <button type="button" className="btn btn-secondary" onClick={() => writeConsent('rejected')}>
           Recusar
         </button>
-        <button type="button" className="btn btn-primary" onClick={() => writeConsent('accepted')}>
+        <button type="button" className="btn btn-secondary" onClick={() => writeConsent('accepted')}>
           Aceitar
         </button>
       </div>

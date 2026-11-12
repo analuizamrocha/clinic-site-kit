@@ -1,5 +1,5 @@
 import { contrastRatio } from '@/lib/theme'
-import type { SiteConfig } from './types'
+import type { Redirect, SiteConfig } from './types'
 
 /**
  * Words that must never appear in a prefilled WhatsApp message: the message
@@ -143,7 +143,9 @@ export const findSiteConfigProblems = (
   config.redirects?.forEach((redirect, index) => {
     const path = `redirects[${index}]`
     for (const field of ['from', 'to'] as const) {
-      if (!redirect[field].startsWith('/') || redirect[field].startsWith('//')) add(`${path}.${field}`, 'must be a path starting with /')
+      if (!redirect[field].startsWith('/') || redirect[field].startsWith('//') || /[?#\s]/.test(redirect[field])) {
+        add(`${path}.${field}`, 'must be a path starting with /, without a query or hash')
+      }
     }
     if (redirect.from === '/') add(`${path}.from`, 'cannot redirect the home page')
     if (redirect.from === redirect.to) add(`${path}.to`, 'points at itself')
@@ -154,6 +156,27 @@ export const findSiteConfigProblems = (
     if (redirectSources.has(redirect.to)) add('redirects', `${redirect.to} is both a source and a destination (chain)`)
   }
 
+  return problems
+}
+
+/**
+ * Route checks need the pages the app actually builds, so they run once those
+ * lists exist (see `assertRedirectTargets`). A permanent redirect to a missing
+ * URL, or away from a page the site still serves, is cached by browsers.
+ */
+export const findRedirectTargetProblems = (
+  redirects: ReadonlyArray<Pick<Redirect, 'from' | 'to'>> | undefined,
+  routes: { indexable: ReadonlySet<string>; served: ReadonlySet<string> },
+): string[] => {
+  const problems: string[] = []
+  redirects?.forEach((redirect, index) => {
+    if (!routes.indexable.has(redirect.to)) {
+      problems.push(`redirects[${index}].to: ${redirect.to} is not an indexable page`)
+    }
+    if (routes.served.has(redirect.from)) {
+      problems.push(`redirects[${index}].from: ${redirect.from} is already a page on this site`)
+    }
+  })
   return problems
 }
 

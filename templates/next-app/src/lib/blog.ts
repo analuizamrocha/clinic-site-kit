@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import matter from 'gray-matter'
-import { getPublishedServices } from '@/lib/site'
+import { getPublishedServices, site } from '@/lib/site'
 import type { ArticleSource } from '@/lib/site/types'
 
 export interface Post {
@@ -20,23 +20,31 @@ export interface Post {
 }
 
 const POSTS_DIR = path.join(process.cwd(), 'content', 'posts')
-/** Characters before the ` | site name` suffix; Google shows about 60 in total. */
+/** Google shows about 60 characters of the document title, suffix included. */
 export const SEARCH_TITLE_MAX = 60
 
 /** The title search results show: `seoTitle` when set, else `title`. */
-export const searchTitle = (post: Pick<Post, 'title' | 'seoTitle'>) => post.seoTitle ?? post.title
+export const searchTitle = (post: Pick<Post, 'title' | 'seoTitle'>) => post.seoTitle?.trim() || post.title
+
+/** What the layout template renders: `search title | site name`. */
+export const documentSearchTitle = (post: Pick<Post, 'title' | 'seoTitle'>, siteName: string) =>
+  `${searchTitle(post)} | ${siteName}`
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/
 
 const toIsoDate = (value: unknown) => (value instanceof Date ? value.toISOString().slice(0, 10) : String(value ?? ''))
 
 /** Posts fail loudly at build, like the site config: no half-filled article ships. */
-export const validatePost = (post: Post, serviceSlugs: Set<string>) => {
+export const validatePost = (post: Post, serviceSlugs: Set<string>, siteName = site.brand.siteName) => {
   const problems: string[] = []
   const add = (field: string, detail: string) => problems.push(`posts/${post.slug}.${field}: ${detail}`)
   for (const field of ['title', 'description', 'body'] as const) if (!post[field]?.trim()) add(field, 'is required')
   if (post.description.length > 160) add('description', 'exceeds 160 characters')
-  if (searchTitle(post).length > SEARCH_TITLE_MAX) {
-    add(post.seoTitle ? 'seoTitle' : 'title', `exceeds ${SEARCH_TITLE_MAX} characters; Google cuts it (add a shorter seoTitle)`)
+  const visible = documentSearchTitle(post, siteName)
+  if (visible.length > SEARCH_TITLE_MAX) {
+    add(
+      post.seoTitle?.trim() ? 'seoTitle' : 'title',
+      `becomes “${visible}” (${visible.length} characters) with the site-name suffix; Google cuts around ${SEARCH_TITLE_MAX} (add a shorter seoTitle)`,
+    )
   }
   // A post nobody can follow to a service is traffic that never reaches the
   // contact button; the real sites had a quarter of their posts in this state.
