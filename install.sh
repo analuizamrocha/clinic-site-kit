@@ -3,6 +3,9 @@
 #
 #   bash install.sh <target-repo-path>
 #
+# An existing skill is replaced only after a yes on the terminal. A
+# non-interactive run leaves it alone. Templates are never overwritten.
+#
 # Copies:
 #   skills/*      -> <target>/.claude/skills/
 #   reference/*   -> <target>/docs/clinic-kit/
@@ -44,12 +47,21 @@ for skill in "$KIT"/skills/*/; do
   name="$(basename "$skill")"
   dest="$TARGET/.claude/skills/$name"
   if [[ -e "$dest" ]]; then
-    echo "  ~ .claude/skills/$name  (exists — replacing)"
-    rm -rf "$dest"
+    replace="n"
+    if [[ -t 0 ]]; then
+      read -r -p "  ? .claude/skills/$name already exists. Replace it? [y/N] " replace
+    else
+      echo "  = .claude/skills/$name (already exists — left alone; no terminal to ask)"
+    fi
+    if [[ "$replace" == "y" || "$replace" == "Y" ]]; then
+      rm -rf "$dest"
+      cp -R "$skill" "$dest"
+      echo "  ~ .claude/skills/$name (replaced)"
+    fi
   else
+    cp -R "$skill" "$dest"
     echo "  + .claude/skills/$name"
   fi
-  cp -R "$skill" "$dest"
 done
 
 # --- reference docs ---------------------------------------------------------

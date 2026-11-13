@@ -13,7 +13,9 @@ The generator refuses to write anything if the brief is incomplete or unsafe.
 - The filled client brief (`docs/client-brief.md` or the kit template).
 - Portrait photo (≥ 900px wide), palette (7 hex colours or a reference to
   derive them from), fonts if the brand has them.
-- The compliance doc from `/clinic-compliance-research` for this profession.
+- The generator writes `docs/compliance-guidelines.md` with `Last verified: PENDENTE`.
+  Fill it with `/clinic-compliance-research` before patient-facing copy. `bun run check`
+  still passes while the date is pending. The warning is the gate, not the test suite.
 
 ## Steps
 
