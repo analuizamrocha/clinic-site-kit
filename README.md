@@ -81,7 +81,7 @@ Then: fill `docs/client-brief.md` → run `/clinic-compliance-research` → read
 | `clinic-treatment-page` | One service page, 12-point checklist | Per service |
 | `clinic-content-plan` | Mine the landing page for topics, **agree how each post gets written**, seed the launch batch | Per batch |
 | `clinic-blog-post` | One article, end to end | Per article |
-| `clinic-seo-audit` | Findings report: canonicals, schema, cannibalization, indexing errors, AEO readiness | Monthly / pre-launch |
+| `clinic-seo-audit` | Findings report: canonicals, schema, cannibalization, indexing errors, AEO readiness, plus `npx is-agentic` on the live host | Monthly / pre-launch |
 | [Taste Skill](https://www.tasteskill.dev/) | **External, once, before generate.** Three directions; a person picks one. Not copied into the client repo | Once per client, optional |
 | [Impeccable](https://impeccable.style/) | **External, after generate.** `init` + `document`, then `typeset` / `layout` / `quieter` / `polish` / `audit`. Already installable at `~/.claude/skills/impeccable` | Design pass, then per visual change |
 

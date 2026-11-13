@@ -79,12 +79,15 @@ indexação. Promessa de resultado, porcentagem e prazo não entram.
 - **Semana 2.** Ele devolve o que está errado. Você corrige, aponta o domínio,
   verifica o Search Console e alinha o Perfil da Empresa.
 - **Lançamento.** Só o que ele aprovou fica indexável. O resto continua no ar,
-  fora do Google.
+  fora do Google. Com o domínio no ar, rode `npx is-agentic <domínio> --json`
+  e guarde o link do relatório. Corrija o que ele marcar como essencial antes
+  de tratar o lançamento como fechado.
 - **Mês 1 a 10.** A curva fica plana. A maior parte do acesso é informacional,
   não "especialidade em cidade". Essa busca depende sobretudo do Perfil da
   Empresa. Cada post leva a uma página de serviço.
-- **Todo mês.** Uma auditoria. O ganho barato é melhorar o título das páginas
-  que já aparecem entre as posições 5 e 12.
+- **Todo mês.** Uma auditoria, mais uma leitura do Is Agentic no domínio
+  canônico. O ganho barato é melhorar o título das páginas que já aparecem
+  entre as posições 5 e 12.
 - **Serviço ou artigo novo.** Um de cada vez, terminado antes do próximo. A
   cada seis meses, ou se o conselho mudar a regra, a pesquisa de compliance é
   refeita.

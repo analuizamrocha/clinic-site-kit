@@ -85,6 +85,28 @@ and look for near-duplicates.
 - Author credential + publish/modified dates visible *and* in schema.
 - Content readable with JS disabled.
 
+### Is Agentic
+
+When the canonical host is public, run the official CLI before writing the
+report. It returns a stored 0–100 agent-readiness score, or starts a scan and
+waits when none exists. No API key.
+
+```bash
+npx is-agentic <canonical-host> --json
+```
+
+Read `score`, `scanned_at`, and `report_url`. Work `issues` in this order:
+`essential` failures, `essential` partials, then `recommended`. Ignore `bonus`.
+Cite `report_url` in the report you hand back.
+
+Do not run this against localhost, a preview URL, or a host that is not the
+canonical one. A report younger than six hours is the same snapshot: deploying
+a fix and immediately re-running the CLI does not show the new score. For an
+immediate re-run, a person uses Rescan on the report page.
+
+The kit's own checks above still apply. Is Agentic does not replace them, and
+a high score does not excuse a compliance failure.
+
 ## 6. Performance & CLS
 
 - Every markdown image has correct registered intrinsic dimensions.
