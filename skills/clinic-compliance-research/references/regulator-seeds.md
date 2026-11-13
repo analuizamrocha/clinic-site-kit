@@ -36,17 +36,24 @@ Cross-cutting layers that apply **on top of** any council's rules in Brazil:
 - **CADE** — competition authority; has struck down council advertising
   restrictions, notably against CFO on pricing/promotions
 
-### Medicine (CFM) — known posture
+### Medicine (CFM) — known posture, verified 2026-11-12
 
-Restrictive. Resolution 2.336/2023 governs medical advertising (in force since
-March 2024). Distinctive: heavy restrictions on before/after imagery,
-testimonial limits, prohibition on guaranteed results and superiority claims,
-mandatory CRM + RQE identification.
+Resolution 2.336/2023 governs medical advertising (in force since March 2024).
+Permissive on the doctor's own channels, strict on the boundaries. Distinctive:
+CRM + the word MÉDICO + RQE on the main profile; no guaranteed results and no
+superiority claims; before/after is allowed only as an educational set
+(indications, satisfactory and unsatisfactory outcomes, complications), with
+the Codame manual adding the operational four-patient sequence; patient-praise
+reshares become the doctor's own posts, and the manual treats more than two
+reshares per semester as repeated. Resolution 2.454/2026 (AI, in force August
+2026) does not amend 2.336: the doctor stays responsible, and a system must
+not deliver a diagnosis or prognosis on its own.
 
-A full worked example of a CFM-derived compliance doc lives at
+A full worked example lives at
 `../../../reference/compliance-examples/cfm-brazil-medicine.md`. **Use it as a
 format reference for medicine only** — its specific rules do not transfer to
-other professions.
+other professions. Re-read the resolution PDF and the Codame manual before
+copying a rule into a project doc.
 
 ### Dentistry (CFO) — known posture, verified 2026-08-03
 
