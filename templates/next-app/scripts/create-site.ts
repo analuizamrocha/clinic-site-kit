@@ -77,6 +77,129 @@ const run = (command: string, args: string[], cwd: string) => {
   if (result.status !== 0) fail(`${command} ${args.join(' ')} failed in ${cwd}`)
 }
 
+const plusMonths = (iso: string, months: number) => {
+  const [year, month, day] = iso.split('-').map(Number)
+  return new Date(Date.UTC(year, month - 1 + months, day)).toISOString().slice(0, 10)
+}
+
+/**
+ * Skeleton only. The generator does not know the regulator's current text.
+ * `clinic-compliance-research` replaces `PENDENTE` after reading primary sources.
+ * Section headings match the kit template so downstream skills can find §8.
+ */
+export const renderComplianceGuidelines = (config: SiteConfig, verifiedOn = 'PENDENTE') => {
+  const pending = verifiedOn === 'PENDENTE'
+  const { practitioner, brand } = config
+  const council = `${practitioner.council.body}-${practitioner.council.region}`
+  const verified = pending ? 'PENDENTE' : verifiedOn
+  const nextReview = pending ? 'PENDENTE' : plusMonths(verifiedOn, 6)
+  return `# Content Compliance Guidelines — ${practitioner.specialty}, Brasil
+
+> Ponto de partida para pesquisa, não é parecer jurídico. O gerador não consulta
+> o conselho. Cada regra abaixo precisa de fonte primária e da data em que foi
+> lida. Enquanto \`Last verified\` for \`PENDENTE\`, nenhuma página vai ao ar.
+> Última verificação: ${verified}.
+
+**Practice:** ${brand.siteName}
+**Profession(s):** ${practitioner.specialty}
+**Jurisdiction:** Brasil / ${practitioner.council.region}
+**Governing body:** ${council} (registro que veio no brief; a pesquisa confirma o conselho federal e o regional)
+**Last verified:** ${verified}
+**Next review due:** ${nextReview}
+
+## 1. Governing instruments
+
+| Instrument | What it covers | Status | Source | Verified |
+|---|---|---|---|---|
+| PENDENTE | Publicidade da profissão | a pesquisar | | |
+
+Não copie regra de outro cliente para esta tabela. Norma, manual do órgão e
+escolha editorial ficam em linhas separadas, cada uma com a fonte que foi aberta.
+
+## 2. Mandatory identification
+
+Bloco para o rodapé, montado a partir do brief. A pesquisa confirma o formato
+que o conselho exige.
+
+    ${practitioner.displayName}
+    ${practitioner.specialty}
+    ${council} ${practitioner.council.number}${practitioner.rqe.length ? ` | RQE ${practitioner.rqe.join(', ')}` : ''}
+
+Where it must appear: cabeçalho ou página principal do site, e o rodapé de cada post.
+
+## 3. Prohibited — hard stops
+
+- PENDENTE — a pesquisa preenche com o artigo da norma, não com memória do modelo.
+
+## 4. Conditionally allowed
+
+| Practice | Allowed? | Condition | Source |
+|---|---|---|---|
+| Patient before/after imagery | PENDENTE | | |
+| Patient testimonials | PENDENTE | | |
+| Prices, discounts, promotions | PENDENTE | | |
+| Procedure video | PENDENTE | | |
+| Teleconsultation claims | PENDENTE | | |
+| Named techniques / equipment brands | PENDENTE | | |
+
+## 5. Always allowed
+
+PENDENTE. Em geral: explicação de condição, quando procurar avaliação, prevenção,
+credenciais, endereço e horários. Só entra aqui o que a fonte da profissão permitir.
+
+## 6. Tone and language
+
+- Required register: sóbrio, educativo.
+- Banned constructions: a pesquisa lista as frases desta profissão. O teste do
+  starter só pega um piso genérico (frase inteira, não palavra solta).
+- Preferred hedging: "pode", "em casos selecionados", "depende da avaliação individual".
+
+## 7. Data protection
+
+Applicable law: LGPD, a confirmar na pesquisa.
+- Consent mechanism required for: PENDENTE
+- Where consent records live: PENDENTE
+- Cookie/analytics consent requirements: o starter já pede consentimento antes do analytics.
+
+## 8. Pre-publish checklist
+
+- [ ] Last verified não é PENDENTE e tem menos de 6 meses
+- [ ] Bloco de identificação presente e igual ao brief
+- [ ] Nenhuma frase de garantia, superioridade ou sensacionalismo da lista desta profissão
+- [ ] Nada aqui depende de uma pergunta aberta da §10
+
+## 9. Risk tiers
+
+Não preencher com pena (advertência, suspensão, cassação) sem reler o código de
+ética nesta passagem.
+
+## 10. ⚠️ Open questions — need professional sign-off
+
+| Question | Why it's open | Who decides | Blocking? |
+|---|---|---|---|
+| Qual norma de publicidade vale para ${practitioner.specialty} em ${practitioner.council.region}, e o que ela diz hoje? | O gerador não pesquisa | clinic-compliance-research, depois o profissional | O site inteiro, até a data sair de PENDENTE |
+
+## 11. Change log
+
+| Date | What changed | Who verified |
+|---|---|---|
+| ${pending ? 'PENDENTE' : verifiedOn} | Esqueleto gerado a partir do brief | create-site |
+`
+}
+
+export const complianceResearchPending = (markdown: string) => /\*\*Last verified:\*\*\s*PENDENTE\b/.test(markdown)
+
+/** Pointer only. Post-writing steps stay in the blog skill, so this file cannot drift. */
+export const renderClaudeMd = () => `# CLAUDE.md
+
+Leia estes dois arquivos. Não copie os passos deles para cá:
+
+- \`AGENTS.md\` — regras deste repositório.
+- \`docs/compliance-guidelines.md\` — publicidade da profissão. Se \`Last verified\` for \`PENDENTE\`, ou a data tiver mais de 6 meses, rode \`clinic-compliance-research\` antes de escrever texto para paciente.
+
+Não há seção de criação de post neste arquivo.
+`
+
 export const renderConfigFile = (config: SiteConfig) =>
   [
     "import type { SiteConfig } from '@/lib/site/types'",
@@ -135,6 +258,15 @@ const main = async () => {
 
   writeFileSync(join(out, 'site', 'site.config.ts'), renderConfigFile(config))
   writeFileSync(join(out, 'src', 'app', 'theme.css'), renderThemeCss(config.brand.palette))
+  mkdirSync(join(out, 'docs'), { recursive: true })
+  const complianceDoc = renderComplianceGuidelines(config)
+  writeFileSync(join(out, 'docs', 'compliance-guidelines.md'), complianceDoc)
+  writeFileSync(join(out, 'CLAUDE.md'), renderClaudeMd())
+  if (complianceResearchPending(complianceDoc)) {
+    console.warn(
+      '\n⚠ docs/compliance-guidelines.md está com Last verified: PENDENTE.\n  O repositório foi gerado e o check pode passar. Nada vai ao ar até /clinic-compliance-research preencher a data.\n',
+    )
+  }
   writeFileSync(join(out, 'public', 'images', 'practitioner.webp'), portraitData)
   rmSync(join(out, 'public', 'images', 'practitioner.svg'), { force: true })
   rmSync(join(out, 'scripts', 'create-site.ts'), { force: true })
@@ -165,8 +297,9 @@ const main = async () => {
 Next steps
   1. cd ${out}${args.install || args.check ? '' : ' && git init && bun install'}
   2. Fonts: src/app/fonts.ts · Extra blocked message terms: CLINICAL_TERMS
-  3. Review every service text with the practitioner (indexable: false until approved)
-  4. bun run check, then push and connect the repo to Vercel
+  3. /clinic-compliance-research preenche docs/compliance-guidelines.md (hoje: PENDENTE)
+  4. Review every service text with the practitioner (indexable: false until approved)
+  5. bun run check, then push and connect the repo to Vercel
 `)
 }
 

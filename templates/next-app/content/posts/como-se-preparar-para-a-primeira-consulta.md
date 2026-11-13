@@ -25,3 +25,11 @@ Escreva quando a queixa começou, o que mudou desde então e o que você já ten
 ## O que esperar
 
 A consulta começa pela conversa, segue com o exame e termina com a explicação dos próximos passos.
+
+---
+
+**Dra. Helena Exemplo**
+Dermatologista
+CRM-SC 00000 | RQE 00000
+
+> _Este conteúdo tem caráter educativo e não substitui a consulta médica. Procure sempre orientação profissional para diagnóstico e tratamento adequados._

@@ -18,8 +18,26 @@ const addCta = () => {
   return anchor
 }
 
+// Node 26 exposes a localStorage that is undefined unless --localstorage-file is set,
+// which hides jsdom's storage. The consent code only needs these four methods.
+const memoryStorage = () => {
+  const store = new Map<string, string>()
+  return {
+    getItem: (key: string) => store.get(key) ?? null,
+    setItem: (key: string, value: string) => {
+      store.set(key, value)
+    },
+    removeItem: (key: string) => {
+      store.delete(key)
+    },
+    clear: () => {
+      store.clear()
+    },
+  }
+}
+
 beforeEach(() => {
-  window.localStorage.clear()
+  Object.defineProperty(window, 'localStorage', { configurable: true, value: memoryStorage() })
   // TODO: replace this cast with a typed global declaration for dataLayer.
   delete (window as DataLayerWindow).dataLayer
 })

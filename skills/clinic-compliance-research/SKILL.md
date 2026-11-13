@@ -8,18 +8,32 @@ description: Identify the professional-advertising regulator that governs a spec
 Regulated-practice advertising rules are **profession-specific, jurisdiction-specific,
 and they move**. This skill derives the applicable rules instead of assuming them.
 
-Worked example of why this matters: Brazilian medicine (CFM) treats patient
-before/after imagery as high-risk and heavily restricted. Brazilian dentistry
-(CFO) *authorizes* it under Resolução CFO-196/2019, given a signed TCLE. Same
-country, adjacent professions, opposite defaults. Reusing a CFM checklist on a
-dental site would produce guidance that is both over-restrictive and wrong.
+Worked example of why this matters: Brazilian medicine (CFM, Resolução
+2.336/2023) allows before/after only as an educational set, with conditions in
+the resolution and extra operational steps in the Codame manual. Brazilian
+dentistry (CFO) authorizes patient imagery under Resolução CFO-196/2019, given
+a signed TCLE. Same country, adjacent professions, different defaults. Reusing
+a CFM checklist on a dental site would produce guidance that is both
+over-restrictive and wrong.
 
 ## Output
 
-One file: `docs/compliance-guidelines.md`, in the destination repo, following the
-structure in `references/compliance-doc-template.md`. Every downstream skill
+One compliance doc in the destination repo, following the structure in
+`references/compliance-doc-template.md`. Every downstream skill
 (`clinic-blog-post`, `clinic-treatment-page`, `clinic-content-plan`) reads that
 file — not this one.
+
+Look for a doc that already exists before creating one:
+
+- `docs/compliance-guidelines.md`
+- `docs/*compliance*` (older sites use `docs/cfm-compliance-guidelines.md`)
+- a path named from `AGENTS.md`, `CLAUDE.md`, or the blog playbook
+
+If one exists, **do not create a second file**. Propose a diff against the file
+the project already uses. Rename it to `docs/compliance-guidelines.md` only
+when the user asks, and update every pointer in the same change. A generated
+site may already contain a skeleton whose `Last verified` line is `PENDENTE` —
+fill that file, do not add another.
 
 ## Step 1 — Establish scope
 
@@ -75,8 +89,16 @@ Watch for and explicitly flag:
   counsel.
 - **Model knowledge is stale by definition.** Anything you "know" about a
   regulation without a fetched, dated citation is a hypothesis, not a rule.
+- **Statute versus manual.** Label each rule as one of three layers. **Norma**
+  is the article of the resolution, code, or statute you opened in this pass.
+  **Manual / prática do órgão** is operational guidance that is not the article
+  text (the Codame manual, an FAQ, a "what changed" page). **Escolha editorial**
+  is stricter than the legal floor, and the doc must say the practitioner chose
+  it. Do not cite an article number, a quota, or a penalty from a text you did
+  not re-read in this pass. The CFM worked example is the pattern:
+  `reference/compliance-examples/cfm-brazil-medicine.md`.
 
-## Step 4 — Write `docs/compliance-guidelines.md`
+## Step 4 — Write or update the compliance doc
 
 Fill `references/compliance-doc-template.md`. The template's section structure
 is fixed so downstream skills can rely on it; the content is entirely
