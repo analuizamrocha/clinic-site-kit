@@ -102,7 +102,7 @@ how fast? A drafted post that can't get reviewed is not an asset.
 ## Step 5 — Seed the launch batch
 
 Write the agreed posts via the `clinic-blog-post` skill — one at a time, each
-fully finished (frontmatter, italic hook, images with registered dimensions,
+fully finished (frontmatter, italic hook, a generated image with registered dimensions,
 llms.txt entry, related posts, identification footer, compliance pass) before
 starting the next. Half-finished posts break the discovery test and are worse
 than absent ones.

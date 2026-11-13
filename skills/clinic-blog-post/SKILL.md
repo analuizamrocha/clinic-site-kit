@@ -90,6 +90,18 @@ most representative one first.
 
 ### Images
 
+Blog posts get a generated image, the same way the hero and section art do.
+The usual tool is ChatGPT or Codex image generation: the results have been
+good enough to publish. One image is enough for the post. It is the card image.
+
+Write the generation prompt in the session. Do not paste a stock URL, and do
+not reference a file that is not on disk yet. The prompt asks for an editorial
+illustration, landscape, with no words in the picture. It must not show a real
+patient, a before/after, a procedure in progress, or a promise. If the
+compliance doc forbids a kind of image, the prompt follows that doc.
+
+Save the file, then:
+
 ```md
 ![Descriptive, accessible alt text — not keyword stuffing](/images/posts/<slug>/<name>.webp)
 ```

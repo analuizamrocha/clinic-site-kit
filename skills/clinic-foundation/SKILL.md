@@ -133,4 +133,5 @@ Then confirm by inspection:
 
 State which client facts were missing and stubbed, and hand over the launch
 checklist: platform-level canonical-host 301 (**not** 302), GSC verification,
-sitemap submission.
+sitemap submission, and `npx is-agentic <canonical-host> --json` once that host
+is public (`clinic-seo-audit` reads the report).

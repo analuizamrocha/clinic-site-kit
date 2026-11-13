@@ -292,6 +292,30 @@ you're handing a model dead URLs.
 - `speakable` schema on FAQ answers.
 - An `AboutPage`/`ProfilePage` schema on `/sobre` to strengthen the person entity.
 
+## 9. Is Agentic, once the canonical host is public
+
+[Is Agentic](https://is-agentic.com/) scores how ready the live site is for an
+agent that has to fetch, read, and cite it. It is an outside check, on top of
+`llms.txt`, robots, and the chunk-shaped copy above.
+
+```bash
+npx is-agentic <canonical-host> --json
+```
+
+Act on `essential` failures first, then `essential` partials, then
+`recommended`. Bonus points are not defects. Put `report_url` in the handoff.
+A report less than six hours old is the previous snapshot, so a rescan right
+after a deploy does not prove the fix. The human-readable report is also at
+`https://is-agentic.com/`.
+
+## 10. Images are generated, not stocked
+
+Heroes, section art, and blog cards come from ChatGPT or Codex image
+generation. One illustration per post is enough, and it is the listing card.
+The prompt asks for an editorial picture with no words in it, no real patient,
+and no before/after. The compliance doc can forbid more than that. The file
+is WebP, under the post slug, with the dimensions `sharp` actually reads.
+
 ---
 
 # Part 3 — YMYL compliance is an SEO feature

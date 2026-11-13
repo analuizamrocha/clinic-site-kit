@@ -175,13 +175,23 @@ METAPROMPT Phase 4. Data-driven, one page per real staffed address.
 
 Then the launch checklist: platform-level canonical-host **301** (not 302), GSC
 verification + sitemap submission, request indexing on the service pages first,
-Lighthouse (90+ / 100 / 100 / 100), and a real phone-in-hand pass over the
-critical journeys.
+Lighthouse (90+ / 100 / 100 / 100), a real phone-in-hand pass over the
+critical journeys, and an Is Agentic scan of the canonical host:
+
+```bash
+npx is-agentic <canonical-host> --json
+```
+
+Fix `essential` failures before calling the launch done. The report URL goes
+in the handoff. Details and the six-hour snapshot rule are in
+`clinic-seo-audit`.
 
 ## Step 11 — Steady state
 
 - Monthly: `/clinic-seo-audit`, focused on position 4–10 queries — improving
-  those beats publishing new posts almost every time
+  those beats publishing new posts almost every time. The audit runs
+  `npx is-agentic <canonical-host> --json` and compares `score` and
+  `scanned_at` with the last handoff.
 - Per new service: `/clinic-treatment-page`
 - Per new article: `/clinic-content-plan` (to place it) → `/clinic-blog-post`
 - Every 6 months, or on a regulatory change: `/clinic-compliance-research`
