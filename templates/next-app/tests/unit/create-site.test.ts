@@ -37,6 +37,14 @@ describe('generated compliance skeleton', () => {
     expect(complianceResearchPending(doc)).toBe(false)
   })
 
+  it('keeps the page checklist and subject-map templates where create-site copies them', () => {
+    const checklist = readFileSync(path.resolve(process.cwd(), '../../templates/checklist-pagina-pr.template.md'), 'utf8')
+    const map = readFileSync(path.resolve(process.cwd(), '../../templates/mapa-do-assunto.template.md'), 'utf8')
+    expect(checklist).toContain('Checklist de PR')
+    expect(map).toContain('Mapa do assunto')
+    expect(map).toContain('Não coloque este mapa dentro de `docs/clinic-kit/`')
+  })
+
   it('points CLAUDE.md at the two sources and does not grow its own post steps', () => {
     const claude = renderClaudeMd()
     expect(claude).toContain('AGENTS.md')

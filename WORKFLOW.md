@@ -131,6 +131,14 @@ Fill `docs/seo-strategy.md` from `templates/seo-strategy.template.md`. One owner
 URL per commercial cluster. Everything after this depends on the table being
 right, and it's much cheaper to argue about now than after 20 pages exist.
 
+The ownership table and the subject map are the same decision written two ways.
+Build the map with `reference/seo/02-mapa-do-assunto.md` (installed copy:
+`docs/clinic-kit/seo/02-mapa-do-assunto.md`; prompt:
+`reference/seo/prompts/mapa-do-assunto.md`). On the client repo the filled map
+is `docs/mapa-do-assunto.md`, not inside `docs/clinic-kit/` — install replaces
+that tree. Questions the practice actually hears belong on the map even when a
+keyword tool shows no volume.
+
 ## Step 6 — Service pages
 
 ```
@@ -139,7 +147,9 @@ right, and it's much cheaper to argue about now than after 20 pages exist.
 
 One per service, each clearing the 12-point checklist. These carry the
 commercial intent and are where booking conversions come from — build them
-before the blog.
+before the blog. New clinical text ships `indexable: false`. The page checklist
+for the PR is `templates/checklist-pagina-pr.template.md` in the kit and
+`docs/checklist-pagina-pr.md` on the client repo.
 
 ## Step 7 — Blog infrastructure, then content plan
 
@@ -161,7 +171,12 @@ practitioner's own voice.
 /clinic-blog-post   ×5–8
 ```
 
-One at a time, each fully finished before the next starts.
+One at a time, each fully finished before the next starts. Drafts follow
+`reference/seo/05-conteudo-e-ia.md`: the model assists, a person reviews every
+line, and a detector score is not a Google verdict. The prompt
+`reference/seo/prompts/auditoria-ia-gptzero.md` is for prioritizing rewrites.
+Do not invent a score when there is no API key and the text was not pasted
+into the tool.
 
 ## Step 9 — Locations, if applicable
 
@@ -186,12 +201,23 @@ Fix `essential` failures before calling the launch done. The report URL goes
 in the handoff. Details and the six-hour snapshot rule are in
 `clinic-seo-audit`.
 
+The no-JS HTML spot check is `bun run seo:html` in the starter (see
+`reference/seo/04-tecnico.md`). It does not replace this audit or `bun run check`.
+Once the canonical host is public, record an AI-visibility baseline with
+`reference/seo/08-visibilidade-ia.md` and keep the table in
+`docs/visibilidade-ia.md`. The score is an observation, not a promise that a
+model will recommend the practice. The kit does not ship a `visibilidade-ia`
+skill yet.
+
 ## Step 11 — Steady state
 
 - Monthly: `/clinic-seo-audit`, focused on position 4–10 queries — improving
   those beats publishing new posts almost every time. The audit runs
   `npx is-agentic <canonical-host> --json` and compares `score` and
-  `scanned_at` with the last handoff.
+  `scanned_at` with the last handoff. The operational loop (changelog,
+  core update, AI-content audit) is `reference/seo/07-medicao.md`.
+- After a relevant content or profile change: repeat the AI-visibility test
+  and compare per tool, still without promising citations.
 - Per new service: `/clinic-treatment-page`
 - Per new article: `/clinic-content-plan` (to place it) → `/clinic-blog-post`
 - Every 6 months, or on a regulatory change: `/clinic-compliance-research`

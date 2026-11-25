@@ -54,6 +54,28 @@ does not run here: a direction is chosen once, before generate.
 - Touch targets ≥ 44px; 390px is the design viewport, 320px must not overflow.
 - Add a type cast only with a `TODO` comment explaining how to remove it.
 
+## SEO operacional (pt-BR)
+
+Fatos continuam só em `site/site.config.ts`. Texto clínico novo ou alterado
+nasce com `indexable: false`. JSON-LD descreve só o texto visível.
+
+O processo (mapa do assunto, checklist, IA assistida, medição, piso de CFM)
+está no playbook operacional: `docs/clinic-kit/seo/` quando o kit foi
+instalado neste repo, ou `reference/seo/` no repositório do kit. A camada
+técnica em inglês continua em `docs/clinic-kit/SEO-AEO-PLAYBOOK.md`. Em
+medicina no Brasil, o piso editorial é `09-saude-cfm.md` nesse playbook: ele
+aponta para o exemplo trabalhado de CFM e não o substitui. O
+`docs/compliance-guidelines.md` do projeto prevalece. Outros conselhos não
+herdam o CFM.
+
+Antes de um PR de conteúdo, preencha `docs/checklist-pagina-pr.md`.
+Prompts prontos: `docs/clinic-kit/seo/prompts/`.
+Conferência de HTML sem JavaScript, fora do `bun run check`:
+
+```bash
+bun run seo:html -- http://127.0.0.1:3000 / /sobre
+```
+
 ## Before a PR
 
 - `bun run check` (Node 24) must pass: typecheck, lint, unit, build, e2e on

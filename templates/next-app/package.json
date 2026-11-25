@@ -12,7 +12,8 @@
     "test:watch": "vitest",
     "theme": "bun scripts/write-theme.ts",
     "e2e": "playwright test",
-    "check": "bun run typecheck && bun run lint && bun run test && bun run build && bun run e2e"
+    "check": "bun run typecheck && bun run lint && bun run test && bun run build && bun run e2e",
+    "seo:html": "bun scripts/check-seo-html.ts"
   },
   "engines": {
     "node": ">=24"
