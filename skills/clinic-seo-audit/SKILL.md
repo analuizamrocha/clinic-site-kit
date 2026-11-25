@@ -7,6 +7,14 @@ description: Audit a practice website's SEO and AEO health against the kit's sta
 
 Read-only by default. Produce findings first; apply fixes only when asked.
 
+Operational playbook (pt-BR), subject map, AI-content audit, and the no-JS HTML
+check: `reference/seo/` in the kit, `docs/clinic-kit/seo/` after install.
+Prompts: `prompts/checagem-tecnica.md`, `prompts/auditoria-ia-gptzero.md` in
+that folder. The checks below stay the technical source. Do not invent a
+GPTZero score when `GPTZERO_API_KEY` is absent and the text was not pasted
+into the tool. The worked CFM example is not copied into the operational
+playbook; follow the project's `docs/compliance-guidelines.md`.
+
 ## Inputs to gather
 
 Project root, public URL, and whichever of these exist: Search Console export,

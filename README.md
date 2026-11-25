@@ -39,6 +39,9 @@ bun scripts/create-site.ts --brief ../../examples/demo-pediatria/client.json --o
 Brief → validated repo that passes `bun run check` (~25 s on a laptop). See
 `skills/clinic-new-site/SKILL.md` for turning a filled `CLIENT-BRIEF.md` into
 `client.json`, and `templates/next-app/README.md` for what the starter enforces.
+The Portuguese operational SEO playbook is
+[`reference/seo/README.md`](reference/seo/README.md). It complements the English
+technical playbook; `install.sh` ships it to `docs/clinic-kit/seo/`.
 
 ## Install
 
@@ -61,8 +64,10 @@ Then: fill `docs/client-brief.md` → run `/clinic-compliance-research` → read
 | `CLIENT-BRIEF.template.md` | The ~30 facts the agent refuses to invent |
 | `reference/PATTERNS.md` | File-by-file map of the reference implementation, with the actual code shapes |
 | `reference/SEO-AEO-PLAYBOOK.md` | Every SEO/AEO decision that worked, and why, as durable rules |
+| `reference/seo/` | Operational SEO playbook (pt-BR): process, subject map, checklist, CFM floor. Does not replace the English playbook |
+| `reference/seo/prompts/` | Ready prompts: subject map, new page, AI-content audit, technical check |
 | `reference/compliance-examples/` | A worked compliance doc (Brazilian medicine / CFM) — **format reference only** |
-| `templates/` | Seeds for `docs/seo-strategy.md` and `docs/blog-content-playbook.md` |
+| `templates/` | Seeds for `docs/seo-strategy.md`, `docs/blog-content-playbook.md`, `docs/mapa-do-assunto.md`, and `docs/checklist-pagina-pr.md` |
 | `install.sh` | Bootstrap into a target repo |
 | `templates/next-app/` | **Runnable starter**: config-driven Next.js site with validation, consent, tests |
 | `templates/next-app/scripts/create-site.ts` | Generator: client brief JSON + portrait → new repo |

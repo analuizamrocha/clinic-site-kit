@@ -27,7 +27,9 @@ The generator refuses to write anything if the brief is incomplete or unsafe.
    - Prefilled messages: generic. "Olá! Vim pelo site e gostaria de agendar
      uma consulta." No condition, procedure or personal detail.
    - Service copy you draft goes in as `indexable: false` and is listed for the
-     practitioner's review. Use only what the brief states.
+     practitioner's review. Use only what the brief states. The generator copies
+     `docs/checklist-pagina-pr.md` and `docs/mapa-do-assunto.md` from the kit
+     templates when those files are present.
    - Unknown fact → stop and ask. Do not fill with plausible values.
 2. **Palette.** Pick `primary`, `onPrimary`, `accent`, `background`,
    `surface`, `text`, `muted`. The generator rejects pairs under 4.5:1 and

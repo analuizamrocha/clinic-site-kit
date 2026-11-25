@@ -1,5 +1,11 @@
 # SEO + AEO Playbook
 
+The operational playbook in Brazilian Portuguese — subject map, page checklist,
+assisted writing, local authority, measurement, AI visibility, and the CFM
+editorial floor — lives in [`seo/`](seo/README.md). On a client repo that is
+`docs/clinic-kit/seo/`. It points back here, and to the worked CFM example,
+where those rules already exist.
+
 The durable rules, separated from the code. Baseline they produced on the source
 site: 328 tracked queries, 66 in the Top 3, 96 in the Top 10, across ~50 pages.
 That's a point-in-time measurement, not a promise — but the rules below are what

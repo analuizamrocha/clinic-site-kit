@@ -69,6 +69,18 @@ All content is subject to `docs/compliance-guidelines.md`. No page promises
 outcomes, implies superiority, or uses fear to earn clicks — which is also what
 the ranking and answer-engine systems reward.
 
+## SEO changelog
+
+One row per relevant change (title, merge, redirect, large rewrite, noindex).
+Hypothesis first: what should move, and where you will see it (Search Console,
+GA4, booked consultations). The operational playbook (pt-BR) describes the loop
+in `docs/clinic-kit/seo/07-medicao.md`. Do not keep this log inside
+`docs/clinic-kit/` — install replaces that tree.
+
+| Date | URL | Change | Hypothesis | Where we will see it | Result (fill in later) |
+|---|---|---|---|---|---|
+| | | | | | |
+
 ## Validation
 
 ```bash

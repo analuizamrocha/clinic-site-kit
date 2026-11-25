@@ -157,6 +157,11 @@ Save the file, then:
 
 ## Compliance pass — mandatory, before done
 
+Editorial floor for assisted drafting: `reference/seo/05-conteudo-e-ia.md` and,
+for Brazilian medicine, `reference/seo/09-saude-cfm.md` (it cross-links the
+worked CFM example; it does not replace this compliance pass). A detector score
+is not a Google verdict. Do not invent one.
+
 **Run the checklist in the project's compliance doc, §8.** That is
 `docs/compliance-guidelines.md`, or the file the project already uses
 (`docs/cfm-compliance-guidelines.md` on older sites). If none exists, or if

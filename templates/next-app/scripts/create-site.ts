@@ -261,6 +261,15 @@ const main = async () => {
   mkdirSync(join(out, 'docs'), { recursive: true })
   const complianceDoc = renderComplianceGuidelines(config)
   writeFileSync(join(out, 'docs', 'compliance-guidelines.md'), complianceDoc)
+  const kitRoot = resolve(STARTER, '../..')
+  for (const [templateName, destName] of [
+    ['checklist-pagina-pr.template.md', 'checklist-pagina-pr.md'],
+    ['mapa-do-assunto.template.md', 'mapa-do-assunto.md'],
+  ] as const) {
+    const templatePath = join(kitRoot, 'templates', templateName)
+    if (existsSync(templatePath)) writeFileSync(join(out, 'docs', destName), readFileSync(templatePath))
+    else console.warn(`\n⚠ kit template not found at ${templatePath}; docs/${destName} was not written\n`)
+  }
   writeFileSync(join(out, 'CLAUDE.md'), renderClaudeMd())
   if (complianceResearchPending(complianceDoc)) {
     console.warn(

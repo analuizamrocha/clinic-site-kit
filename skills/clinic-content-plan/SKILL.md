@@ -14,6 +14,14 @@ agreed, sourced plan — never a pile of unreviewed generated articles.
 the practitioner's own words; some can be drafted and then reviewed; some
 shouldn't exist. Step 4 is a real checkpoint — stop there and get answers.
 
+Before clustering, build or update the subject map in
+`reference/seo/02-mapa-do-assunto.md` (prompt:
+`reference/seo/prompts/mapa-do-assunto.md`; on a client repo,
+`docs/clinic-kit/seo/` and `docs/mapa-do-assunto.md`). The map and
+`docs/seo-strategy.md` must name the same owner URL per intent. Zero-volume
+questions from the practice stay on the map. Do not store the filled map
+inside `docs/clinic-kit/` — install replaces that tree.
+
 ## Step 1 — Mine what already exists
 
 The landing page is a compressed version of everything the practice wants to

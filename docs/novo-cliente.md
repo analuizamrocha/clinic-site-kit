@@ -72,6 +72,15 @@ falhar.
 Texto clínico novo entra com `indexable: false`. A aprovação dele liga a
 indexação. Promessa de resultado, porcentagem e prazo não entram.
 
+Antes de abrir URL nova, monte o mapa do assunto
+(`reference/seo/02-mapa-do-assunto.md` no kit; no site,
+`docs/mapa-do-assunto.md`). O checklist de cada página de conteúdo está em
+`templates/checklist-pagina-pr.template.md`. No lançamento, registre a linha de
+base de visibilidade em IA (`reference/seo/08-visibilidade-ia.md`) sem prometer
+que o modelo vai indicar o consultório. O playbook operacional completo é
+`reference/seo/`. Ele complementa o playbook técnico em inglês e aponta para o
+exemplo de CFM em vez de copiá-lo.
+
 ## O que dizer sobre o tempo
 
 - **Semana 1.** Reunião, brief, regra do conselho, site no ar em preview. Ele vê
@@ -87,7 +96,8 @@ indexação. Promessa de resultado, porcentagem e prazo não entram.
   Empresa. Cada post leva a uma página de serviço.
 - **Todo mês.** Uma auditoria, mais uma leitura do Is Agentic no domínio
   canônico. O ganho barato é melhorar o título das páginas que já aparecem
-  entre as posições 5 e 12.
+  entre as posições 5 e 12. O loop de medição e o que fazer depois de um core
+  update estão em `reference/seo/07-medicao.md`.
 - **Serviço ou artigo novo.** Um de cada vez, terminado antes do próximo. A
   cada seis meses, ou se o conselho mudar a regra, a pesquisa de compliance é
   refeita.

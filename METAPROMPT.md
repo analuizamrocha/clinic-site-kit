@@ -3,7 +3,9 @@
 > **How to use:** open a fresh Claude Code (Opus) session in the *new client's*
 > repo. Paste everything below the line. Attach or copy `reference/PATTERNS.md`,
 > `reference/SEO-AEO-PLAYBOOK.md`, and your filled-in `client-brief.md` into that
-> repo first — the prompt references them.
+> repo first — the prompt references them. If `docs/clinic-kit/seo/` is
+> installed, that Portuguese playbook is the operational layer on top of the
+> English one.
 
 ---
 
@@ -38,7 +40,13 @@ regulatory compliance outrank cleverness at every decision point.
    constants module and is imported everywhere else — including into JSON-LD.
    If a phone number appears as a literal in two files, that is a bug.
 5. **Ship in reviewable slices.** Phase boundaries below are commit boundaries.
-6. Report honestly. If a phase is blocked, finish the other phases and say
+6. **The Portuguese operational playbook complements the English one.** When
+   this repo has `docs/clinic-kit/seo/`, follow it for the subject map, the
+   page checklist, assisted drafting, and the CFM editorial floor. Technical
+   rules in `docs/clinic-kit/SEO-AEO-PLAYBOOK.md` still apply. Do not copy the
+   worked CFM example over the project's `docs/compliance-guidelines.md`.
+   Clinical text starts `indexable: false`. JSON-LD matches visible text.
+7. Report honestly. If a phase is blocked, finish the other phases and say
    plainly what you left out and why.
 
 ## Phase -1 — Compliance research (before anything else)
@@ -137,6 +145,10 @@ Rules that this table enforces for the life of the site:
 - The index page (`/tratamentos`) organizes; it never competes with its children.
 
 Derive the cluster list from what the practitioner actually does, per the brief.
+Also record the subject map at `docs/mapa-do-assunto.md`, using
+`docs/clinic-kit/seo/02-mapa-do-assunto.md` when the kit is installed. The map
+and this table must name the same owner URL. Do not store the filled map inside
+`docs/clinic-kit/` — `install.sh` replaces that tree.
 
 ## Phase 3 — Service / treatment pages
 

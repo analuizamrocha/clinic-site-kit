@@ -6,7 +6,12 @@ description: Create or update a single service/treatment/procedure page on a med
 # Clinic Treatment Page
 
 One service page, built to own its commercial intent cluster. Every page must
-clear all 12 checkpoints — the checklist is the point of this skill.
+clear all 12 checkpoints — the checklist is the point of this skill. Also clear
+the operational page checklist in `reference/seo/03-checklist-pagina.md` and, on
+the PR, `docs/checklist-pagina-pr.md`. New clinical text ships
+`indexable: false` until the practitioner approves. For Brazilian medicine, the
+editorial floor is `reference/seo/09-saude-cfm.md`; it points at the worked CFM
+example and does not replace `docs/compliance-guidelines.md`.
 
 ## Before writing
 

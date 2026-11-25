@@ -13,6 +13,9 @@ bun install
 bun run dev        # http://localhost:3000
 bun run theme      # regenerate src/app/theme.css after changing the palette
 bun run check      # typecheck · lint · unit · build · e2e — must pass before a PR
+bun run seo:html -- http://127.0.0.1:3000 / /sobre
+                   # raw HTML only: title, H1, H2, JSON-LD, alt, internal links
+                   # not part of check; run against `bun run start` after a build
 ```
 
 ## What the build refuses

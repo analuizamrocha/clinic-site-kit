@@ -8,7 +8,7 @@
 #
 # Copies:
 #   skills/*      -> <target>/.claude/skills/
-#   reference/*   -> <target>/docs/clinic-kit/
+#   reference/*   -> <target>/docs/clinic-kit/   (includes reference/seo/)
 #   templates/*   -> <target>/docs/          (never overwrites)
 #   CLIENT-BRIEF  -> <target>/docs/client-brief.md  (never overwrites)
 
@@ -69,7 +69,7 @@ mkdir -p "$TARGET/docs/clinic-kit"
 cp -R "$KIT"/reference/. "$TARGET/docs/clinic-kit/"
 cp "$KIT/WORKFLOW.md" "$TARGET/docs/clinic-kit/WORKFLOW.md"
 cp "$KIT/METAPROMPT.md" "$TARGET/docs/clinic-kit/METAPROMPT.md"
-echo "  + docs/clinic-kit/ (PATTERNS, SEO-AEO-PLAYBOOK, WORKFLOW, METAPROMPT, compliance-examples)"
+echo "  + docs/clinic-kit/ (PATTERNS, SEO-AEO-PLAYBOOK, seo/, WORKFLOW, METAPROMPT, compliance-examples)"
 
 # --- templates: never clobber real work -------------------------------------
 copy_if_absent() {
@@ -98,5 +98,6 @@ next:
   1. fill  docs/client-brief.md            (every blank is a blocker)
   2. run   /clinic-compliance-research     (before any copy exists)
   3. read  docs/clinic-kit/WORKFLOW.md     (the full sequence)
+  4. read  docs/clinic-kit/seo/README.md   (operational SEO, pt-BR)
 
 EOF
